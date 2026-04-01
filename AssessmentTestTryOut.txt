@@ -1,0 +1,45 @@
+April 1, 2026
+
+thread, stream, module, BIG Q: @override necessary?
+SequencedMap
+.intern()
+sealed class
+comparable vs comparator 
+issues with access keywords
+exceptions 
+
+text blocks don't start with new lines 
+
+1. the one after default didn't compile 
+2. f -> no issue with the assignment here, b was correct 
+3. ---- thread: next to zero knowledge
+4. c -> d 
+5. b - first correct one ;-;
+6. f -> should have been obvious but it's c
+7. a, d, f -> d, e 
+8. e, f, d -> c, e, f got 2 here 
+9. c -> d 
+10. h major confusion question to self: @override - what happens if this annotation isn't used 
+11. b q to self: protected 
+12. b -> c, d, e 
+13. no idea 
+14. a
+15. c, f
+16. f
+17. c
+18. b
+19. c
+20. no idea 
+21. c, e 
+22. e intern()??
+23. g
+24. b, idkkk
+25. g
+26. d, f
+27. no idea 
+28. c, confused 
+
+
+
+
+correct: 6
