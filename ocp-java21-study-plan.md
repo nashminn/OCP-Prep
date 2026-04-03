@@ -39,10 +39,10 @@ As an active Java developer, Chapters 1–5 will move fast. Extra week added to 
 | Day | Task |
 |-----|------|
 | Wed Apr 1 | ~~Assessment Test~~ ✓ Done |
-| Thu Apr 2 | Ch. 1: Building Blocks — JVM mechanics, primitives, `var`, text blocks |
-| Sun Apr 5 | Ch. 2: Operators — ternary, bitwise, compound assignment traps |
-| Mon Apr 6 | Ch. 3: Making Decisions — `switch` expressions, pattern matching (Java 21) |
-| Tue Apr 7 | Review questions Ch. 1–3 + **code**: write `switch` expressions with pattern matching, text blocks |
+| Mon Apr 6 | Ch. 1: Building Blocks — JVM mechanics, primitives, `var`, text blocks |
+| Tue Apr 7 | Ch. 2: Operators — ternary, bitwise, compound assignment traps |
+| Wed Apr 8 | Ch. 3: Making Decisions — `switch` expressions, pattern matching (Java 21) |
+| Thu Apr 9 | Review questions Ch. 1–3 + **code**: write `switch` expressions with pattern matching, text blocks |
 
 **Goal:** Chapters 1–3 are mostly revision. If you score >80% on review questions, you're on track.
 
@@ -53,11 +53,11 @@ As an active Java developer, Chapters 1–5 will move fast. Extra week added to 
 
 | Day | Task |
 |-----|------|
-| Wed Apr 8  | Ch. 4 (part 1): Strings, StringBuilder, equality traps |
-| Thu Apr 9  | Ch. 4 (part 2): Arrays, Math API, Date/Time API |
-| Sun Apr 12 | Ch. 5 (part 1): Method design, access modifiers, varargs |
-| Mon Apr 13 | Ch. 5 (part 2): Static members, overloading rules, pass-by-value |
-| Tue Apr 14 | Review questions Ch. 4–5 + **code**: String pool traps, Date/Time manipulation, access modifier scenarios |
+| Sun Apr 12 | Ch. 4 (part 1): Strings, StringBuilder, equality traps |
+| Mon Apr 13 | Ch. 4 (part 2): Arrays, Math API, Date/Time API |
+| Tue Apr 14 | Ch. 5 (part 1): Method design, access modifiers, varargs |
+| Wed Apr 15 | Ch. 5 (part 2): Static members, overloading rules, pass-by-value |
+| Thu Apr 16 | Review questions Ch. 4–5 + **code**: String pool traps, Date/Time manipulation, access modifier scenarios |
 
 **Watch out for:** String pool behavior, `==` vs `.equals()`, overloading resolution order.
 
@@ -68,11 +68,11 @@ As an active Java developer, Chapters 1–5 will move fast. Extra week added to 
 
 | Day | Task |
 |-----|------|
-| Wed Apr 15 | Ch. 6 (part 1): Inheritance, constructor chaining, `super` |
-| Thu Apr 16 | Ch. 6 (part 2): Abstract classes, immutable objects, initialization order |
-| Sun Apr 19 | Ch. 7 (part 1): Interfaces (default/static/private methods), enums |
-| Mon Apr 20 | Ch. 7 (part 2): **Sealed classes**, **records**, nested classes — Java 21 key topics |
-| Tue Apr 21 | Review questions Ch. 6–7, draw inheritance diagrams by hand + **code**: sealed hierarchy with `permits`, record with compact constructor, `@Override` scenarios |
+| Sun Apr 20 | Ch. 6 (part 1): Inheritance, constructor chaining, `super` |
+| Mon Apr 21 | Ch. 6 (part 2): Abstract classes, immutable objects, initialization order |
+| Tue Apr 22 | Ch. 7 (part 1): Interfaces (default/static/private methods), enums |
+| Wed Apr 23 | Ch. 7 (part 2): **Sealed classes**, **records**, nested classes — Java 21 key topics |
+| Thu Apr 24 | Review questions Ch. 6–7, draw inheritance diagrams by hand + **code**: sealed hierarchy with `permits`, record with compact constructor, `@Override` scenarios |
 
 **Watch out for:** Object initialization order, sealed class rules, record constructors.
 > **Assessment gap:** Records and sealed classes are both unfamiliar. Do NOT just read — write code for each. Define a record, use compact constructors, create a sealed hierarchy with `permits`. Get hands-on before moving on.
@@ -84,11 +84,11 @@ As an active Java developer, Chapters 1–5 will move fast. Extra week added to 
 
 | Day | Task |
 |-----|------|
-| Wed Apr 22 | Ch. 8 (part 1): Lambda syntax, functional interfaces, method references |
-| Thu Apr 23 | Ch. 8 (part 2): Built-in functional interfaces (`Predicate`, `Function`, `Supplier`, `Consumer`, etc.) |
-| Sun Apr 26 | **Code day** — chain predicates, write method references for all 4 forms, implement `Comparator.comparing()` |
-| Mon Apr 27 | Review questions Ch. 8 |
-| Tue Apr 28 | Ch. 9 (part 1): Collections API — `List`, `Set`, `Queue`, `Deque`, `Map`, `SequencedMap` |
+| Sun Apr 27 | Ch. 8 (part 1): Lambda syntax, functional interfaces, method references |
+| Mon Apr 28 | Ch. 8 (part 2): Built-in functional interfaces (`Predicate`, `Function`, `Supplier`, `Consumer`, etc.) |
+| Tue Apr 29 | **Code day** — chain predicates, write method references for all 4 forms, implement `Comparator.comparing()` |
+| Wed Apr 30 | Review questions Ch. 8 |
+| Thu May 1  | Ch. 9 (part 1): Collections API — `List`, `Set`, `Queue`, `Deque`, `Map`, `SequencedMap` |
 
 **Watch out for:** Which functional interface to use when — know the return type signatures cold.
 
@@ -99,11 +99,11 @@ As an active Java developer, Chapters 1–5 will move fast. Extra week added to 
 
 | Day | Task |
 |-----|------|
-| Wed Apr 29 | Ch. 9 (part 2): Generics, bounded wildcards (`? extends`, `? super`), `Comparable`/`Comparator` |
-| Thu Apr 30 | **Code day** — write generic classes, wildcard methods, `Comparator` chaining; review questions Ch. 9 |
-| Sun May 3  | Ch. 10 (part 1): Stream pipeline, lazy evaluation, terminal vs intermediate ops |
-| Mon May 4  | Ch. 10 (part 2): Collectors, primitive streams, `Optional` |
-| Tue May 5  | **Code day** — build stream pipelines, collect to maps/groups, chain `Optional`, review questions Ch. 10 |
+| Sun May 4  | Ch. 9 (part 2): Generics, bounded wildcards (`? extends`, `? super`), `Comparable`/`Comparator` |
+| Mon May 5  | **Code day** — write generic classes, wildcard methods, `Comparator` chaining; review questions Ch. 9 |
+| Tue May 6  | Ch. 10 (part 1): Stream pipeline, lazy evaluation, terminal vs intermediate ops |
+| Wed May 7  | Ch. 10 (part 2): Collectors, primitive streams, `Optional` |
+| Thu May 8  | **Code day** — build stream pipelines, collect to maps/groups, chain `Optional`, review questions Ch. 10 |
 
 **Watch out for:** Wildcard rules (covariance/contravariance), `Comparator` chaining, `Collectors.groupingBy` vs `partitioningBy`.
 
@@ -114,11 +114,11 @@ As an active Java developer, Chapters 1–5 will move fast. Extra week added to 
 
 | Day | Task |
 |-----|------|
-| Wed May 6  | Ch. 11 **DEEP DIVE** — Exceptions: hierarchy, checked/unchecked, multi-catch, try-with-resources |
-| Thu May 7  | **Code day** — write custom exceptions, chained exceptions, try-with-resources with multiple resources; review questions Ch. 11 |
-| Sun May 10 | Ch. 12 (part 1): Module system basics — `module-info.java`, `requires`, `exports` |
-| Mon May 11 | Ch. 12 (part 2): Services, open modules, `jlink`, `jdeps`, migration strategies |
-| Tue May 12 | Review questions Ch. 12 + localization/i18n from Ch. 11 |
+| Sun May 11 | Ch. 11 **DEEP DIVE** — Exceptions: hierarchy, checked/unchecked, multi-catch, try-with-resources |
+| Mon May 12 | **Code day** — write custom exceptions, chained exceptions, try-with-resources with multiple resources; review questions Ch. 11 |
+| Tue May 13 | Ch. 12 (part 1): Module system basics — `module-info.java`, `requires`, `exports` |
+| Wed May 14 | Ch. 12 (part 2): Services, open modules, `jlink`, `jdeps`, migration strategies |
+| Thu May 15 | Review questions Ch. 12 + localization/i18n from Ch. 11 |
 
 **Watch out for:** Modules are exam-heavy and unfamiliar to most developers — give it extra time.
 
@@ -129,11 +129,11 @@ As an active Java developer, Chapters 1–5 will move fast. Extra week added to 
 
 | Day | Task |
 |-----|------|
-| Wed May 13 | Ch. 13 (part 1): Concurrency fundamentals — threads, `Runnable`/`Callable`, `ExecutorService`, thread lifecycle |
-| Thu May 14 | Ch. 13 (part 2): Atomic classes, `CyclicBarrier`, concurrent collections, **virtual threads** (Java 21) |
-| Sun May 17 | **Code day** — write `ExecutorService` tasks, use `AtomicInteger`, spin up virtual threads; Ch. 14: I/O condensed *(active devs usually know Path/Files)* |
-| Mon May 18 | Full timed practice test (simulate exam: 50 questions, 90 min, no book) |
-| Tue May 19 | Review wrong answers; "Exam Essentials" for Concurrency, Streams, and Exceptions only |
+| Sun May 18 | Ch. 13 (part 1): Concurrency fundamentals — threads, `Runnable`/`Callable`, `ExecutorService`, thread lifecycle |
+| Mon May 19 | Ch. 13 (part 2): Atomic classes, `CyclicBarrier`, concurrent collections, **virtual threads** (Java 21) |
+| Tue May 20 | **Code day** — write `ExecutorService` tasks, use `AtomicInteger`, spin up virtual threads; Ch. 14: I/O condensed *(active devs usually know Path/Files)* |
+| Wed May 21 | Full timed practice test (simulate exam: 50 questions, 90 min, no book) |
+| Thu May 22 | Review wrong answers; "Exam Essentials" for Concurrency, Streams, and Exceptions only |
 
 ---
 
