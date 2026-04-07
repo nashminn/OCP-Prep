@@ -1,0 +1,23 @@
+1. d, e
+2. c, d, e
+3. a, c, e - WRONG - c (only a, e) -
+4. b, e, g
+5. a, f - or just g?- WRONG -(a, d, f) not g but d also
+6. f
+7. c WRONG (c, e)
+8. b, d, g, h WRONG - b, d, e, h (no multi var ass with var)
+9. e
+10. a, e, f
+11. d WRONG - e - they were all in the same package bruh
+12. a, c WRONG - (a, c, d) - scope issue
+13. a, b, c, d, e, f, g, h, i WRONG just a, b, c apparently 
+14. d, e WRONG (a, b, d, e)
+15. c, e, f
+16. a, d, f - WRONG - (a, d)
+17. d, f, g
+18. b, c, d, f - WRONG - b, c, f [another mistake because of this: var never multi variable assignment type]
+19. a - WRONG - you missed d - silly one tho ;-;
+20. a, b - WRONG - wow - correct: c, big mistake: missed the constructor syntax, it had a return type which is completely invalid 
+21. d
+22. b, c, f, g - WRONG - only c, f, g 
+23. b, c, d - WRONG - only a, d ? - float needs postfix of 'f' or 'F'
