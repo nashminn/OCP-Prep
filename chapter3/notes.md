@@ -24,7 +24,7 @@ with expressions, default is OFTEN required
 because they must return some value 
 
 switch statement is not required to contain any case clauses
-no support for boolean, and long [neither for float, and double but that should be obvious]
+ATTENTION: no support for boolean, and long [neither for float, and double but that should be obvious]
 
 from java21+, any object type can be used as a switch variable, provided that pattern matching is used
 
@@ -40,5 +40,14 @@ with expressions -> match only a single branch - so breaks not needed here
 
 some batshit ambiguity there with statements that look like expressions 
 
+switch "expression" needs to be exhaustive
+statements have to be exhaustive too at times
 
+3 possible ways to exhaust:
+1. if enum: write for all possible values
+2. add a default case
+3. with pattern matching, cover all possible patterns
+
+
+yield == return within a switch block
 
