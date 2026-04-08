@@ -1,0 +1,24 @@
+1. a, d, g
+2. a, b, d
+3. b, c, f WRONG - missed d
+4. b
+5. a, c
+6. f
+7. d
+8. e WRONG - correct: a 
+9. a, d, e
+10. a, b, d WRONG - correct: e 
+11. d
+12. d
+13. f
+14. e, g
+15. d
+16. b
+17. g
+18. c
+19. b, f
+20. d
+
+
+
+confusion regarding precedence still, and casting too
