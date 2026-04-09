@@ -1,0 +1,45 @@
+1. f
+2. a, b WRONG, missed c -> need to review notes
+3. b 
+4. a, d, f
+5. f
+6. g WRONGGG 
+7. b, d, e WRONG no e - very dumb one this one 
+8. h WRONG -> g
+9. c WRONG, missed, b and e 
+10. c WRONG, ans: e 
+11. a
+12. c
+13. f
+14. g
+15. g WRONG, ans: b, d, f really messed up with a var type variable as the loop controller 
+16. f
+17. b, d WRONG, missed a 
+18. h WRONG, ans: b, e 
+19. e
+20. a, c, e WRONG, no c 
+21. c WRONG, just d 
+22. g WRONG, just e 
+23. f
+24. e WRONG, ans: b 
+25. b WRONG, ans: d
+26. d WRONG, ans: f
+27. d
+28. f
+29. d WRONG, ans: c, stupid mistake 
+30. b WRONG, ans: e, 
+
+
+
+super confused about var being the type of the loop controller
+instanceof with switch and if -> major confusion already
+flow scoping is a mf, did not understand the explanation for 28, got the answer right tho
+right answer, wrong formula type shi
+case with SomeType someType -> with a when sometimes is confusing 
+
+20 
+L1 h = 2 
+L2 
+L3 
+
+hum 
