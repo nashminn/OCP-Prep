@@ -33,18 +33,27 @@ As an active Java developer, Chapters 1–5 will move fast. Extra week added to 
 
 ---
 
-## Week 1 — Foundations (Fast Track)
+## Week 1 — Foundations
 *Chapters 1–3*
 
-| Day | Task |
-|-----|------|
-| Wed Apr 1 | ~~Assessment Test~~ ✓ Done |
-| Mon Apr 6 | Ch. 1: Building Blocks — JVM mechanics, primitives, `var`, text blocks |
-| Tue Apr 7 | Ch. 2: Operators — ternary, bitwise, compound assignment traps |
-| Wed Apr 8 | Ch. 3: Making Decisions — `switch` expressions, pattern matching (Java 21) |
-| Thu Apr 9 | Review questions Ch. 1–3 + **code**: write `switch` expressions with pattern matching, text blocks |
+| Day | Task | Score |
+|-----|------|-------|
+| Wed Apr 1 | ~~Assessment Test~~ ✓ | — |
+| Mon Apr 6 | ~~Ch. 1: Building Blocks~~ ✓ | — |
+| Tue Apr 7 | ~~Ch. 2: Operators~~ ✓ | — |
+| Wed Apr 8 | ~~Ch. 3: Making Decisions~~ ✓ | — |
+| Thu Apr 9 | ~~Review questions Ch. 1–3~~ ✓ | Ch.1: ~39% / Ch.2: ~85% / Ch.3: ~43% |
+| Sat Apr 11 | **Ch. 1 + Ch. 3 reinforcement** — re-read both sets of refined notes; code the 3 targets below | — |
 
-**Goal:** Chapters 1–3 are mostly revision. If you score >80% on review questions, you're on track.
+**Result: "Fast Track" assumption was wrong for Ch. 1 and Ch. 3. Ch. 2 is solid.**
+
+Ch. 1 and Ch. 3 notes already incorporate all the review mistakes — re-reading them is fast. Saturday is for coding, not re-reading the book.
+
+**Saturday code targets:**
+1. **Ch. 1** — `var` edge cases (`null`, multi-var, instance vs local); write a class that forces all 4 default initialization scenarios; replicate the scope trap from Q12/Q22
+2. **Ch. 3** — `instanceof` + flow scoping (5 scenarios from notes); `switch` with type patterns + `when` guards; `var` in `for` and `for-each` over `int[]`, `String[]`, and `List<String>`; labeled `break` and `continue`
+
+Week 2 starts on schedule — Ch. 4–5 are independent of the Ch. 1/3 weak areas.
 
 ---
 
