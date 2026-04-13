@@ -67,6 +67,26 @@ normalizing? 1. adds \n to end of string, 2. any line break -> \n (fuck you wind
 stripIndent()
 - gets rid of all incidental whitespaces
 
-apparently both of these normalize
+apparently both of these normalize, BUT STRIP INDENT DOES NOT ADD \n AT THE END IF MISSING
 
+isEmpty() - "" -> true -> absolutely nothing
+isBlank() - "", "   " -> true -> tbh they're all blank
 
+either String.format("alsdjfoasdf %s %d", theStr, theInt) 
+or "alsdjfoasdf %s %d".formatted(theStr, theInt);
+
+%n -> for system dependent line separators (fu windows)
+
+%f -> default = 6 digits after decimal point 
+%.digitf - rounding applied, not truncation 
+total length of output %totaldigits.
+
+%012f, [o -> 00003.141593] including zero total 12, since after . count not specified, default 6 digits applied 
+
+method chaining
+
+StringBuilder - NOT immutable
+StringBuffer -> thread support, sth negative, forgot already
+new StringBuilder(size?)
+
+appendCodePoint(int)
