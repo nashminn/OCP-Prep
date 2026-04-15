@@ -136,3 +136,19 @@ array doesn't allocate space for the objects, it allocates space for the referen
 arra.length -> prop, not a method the way it is for String 
 and it doesn't care if the array is populated or not 
 
+Arrays.sort()
+Arrays.binarySearch(arra, targetNumber)
+
+array not sorted -> output unpredictable
+
+equals -> == - object reference check, otherwise size + element + order
+compare -> 0 means equals, negative -> 1st smaller, positive -> 1st larger
+and a bunch of other stuff
+
+null is the smallest 
+
+Arrays.compare() -> both must be of the same type
+
+mismatch -> equal - returns -1 
+otherwise returns first index where they differ
+
