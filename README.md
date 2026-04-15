@@ -10,5 +10,5 @@ Study materials and plan for the **OCP Oracle Certified Professional Java SE 21 
 ## Exam Info
 
 - **Exam:** 1Z0-830
-- **Format:** 50 questions, 90 minutes
+- **Format:** 50 questions, 120 minutes
 - **Passing score:** 68%
