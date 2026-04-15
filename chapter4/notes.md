@@ -11,7 +11,7 @@ System.out.println( 1 + 2 + "c"); -> 3c
 
 immutable
 
-length()
+length() -> METHOD FOR STRING
 charAt(index) // start from 0 obviously
 indexOf(c'har')
 
@@ -90,3 +90,49 @@ StringBuffer -> thread support, sth negative, forgot already
 new StringBuilder(size?)
 
 appendCodePoint(int)
+insert()
+
+delete(st, ed)
+deleteCharAt()
+
+replace() -> different for StringBuilder (delete + insert)
+reverse() -> REVERSE EXISTS FOR STRINGBUILDER AND NOT STRING
+
+it says i saw earlier that equals() uses logical equality rather than object equality for String objects
+but i have no memory of this
+
+StringBuilder authors were lazy and didn't bother to implement the equals method properly so now to check equality 
+you have to first .toString() that thing and then check with .equals()
+
+String pool aka the intern pool -> location in JVM that collects all strings
+string pool has literal values and constanst that appear in program
+
+intern() -> will use an object in the string pool if one is present
+
+even as i'm reading, compile time consts are getting confusing
+
+never use intern() or == -> they're for the exam 
+
+array -> area of memory on heap
+
+char[] letters; -> a reference variable, not a primitive one
+
+array == ordered list uwu
+
+int[] nums = new int[3];
+int[] more = {12, 13, 53}; // anonymous array 
+int conf[], sth; // valid apparently
+
+arrays are objects so can call .equals() on them 
+but it does not look at the elements of the array 
+just the reference [should be obvious by now ig]
+
+to print an array nicely:
+Arrays.toString(arra);
+arra.toString() returns other stuff arrayType;@hashCode
+
+array doesn't allocate space for the objects, it allocates space for the reference to those objects
+
+arra.length -> prop, not a method the way it is for String 
+and it doesn't care if the array is populated or not 
+
