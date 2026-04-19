@@ -152,3 +152,59 @@ Arrays.compare() -> both must be of the same type
 mismatch -> equal - returns -1 
 otherwise returns first index where they differ
 
+int [][] args = new int[2][];
+args[0] = new int[5];
+args[1] = new int[3];
+
+rounding double -> returns long 
+rounding float -> returns int
+
+ceil, floor (double) -> return double 
+
+pow(double num, double exponent) -> return double
+Math.random() -> return double 
+
+BigInteger
+BigDecimal -> calcs involving money
+^^ immutable classes
+
+use valueOf for these two
+
+
+LocalDate - no time, no time zone
+LocalTime - no date, no time zone
+LocalDateTime - date + time, no time zone
+ZonedDateTime - date + time + time zone
+
+now() for all of them uwu
+UTC == GMT
++02:00 == GMT + 2 == UTC + 2
+
+date and time classes have private constructors 
+new LocalDate() // DOES NOT COMPILE
+
+date and time classes are immutable
+
+With LocalDate
+plusDays
+plusWeeks
+plusMonths
+plusYears
+
+the with methods -> to create a copy of an object with specified fields altered to specified value 
+
+LocalDate + .atTime() -> LocalDateTime
+LocalTime + .atDate() -> LocalDate - idk why not LocalDateTIme
+LocalDateTime + .atZone(zoneId) -> ZonedDateTime
+
+cannot chain methods when creating a Period
+Period methods are static 
+
+Period >= day -> output with P
+Duration -> days, hours, minutes, seconds, nanoseconds
+-> output with PT
+
+ChronoUnit - has sth called HALF_DAYS (12 hours)
+
+-- too many small details in this section
+
