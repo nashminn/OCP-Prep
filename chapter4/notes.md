@@ -1,210 +1,657 @@
-String 
-- implements interface CharSequence
-- + 
---- both numeric -> number addition
---- either operand not numeric -> string concatenation
---- evaluation from left to right
+# Chapter 4: Core APIs
 
+---
 
-System.out.println("c"+ 1 + 2); -> c12
-System.out.println( 1 + 2 + "c"); -> 3c
+## String
 
-immutable
+- Implements `CharSequence` interface
+- **Immutable** — every method that "changes" a String actually returns a new one
 
-length() -> METHOD FOR STRING
-charAt(index) // start from 0 obviously
-indexOf(c'har')
+### Concatenation Rules (in order, evaluated left to right)
 
-code point size > char size 
-codePointAt() // this is new to me 
+1. If both operands are numeric → **addition**
+2. If either operand is a String → **concatenation**
+3. Evaluated **left to right**
 
+```java
+System.out.println("c" + 1 + 2);   // c12  — "c" makes everything after it concat
+System.out.println(1 + 2 + "c");   // 3c   — 1+2 evaluates to 3 first, then "3"+"c"
+```
 
-substring - book claims this is the trickiest
-substring(start index, optional end before index) -> returns group of characters 
+**`null` in concatenation** — doesn't explode, just becomes the string `"null"`:
+```java
+String s = null;
+System.out.println("hello" + s);   // "hellonull"
+```
 
-char can be passed to an int parameter type
+**`+=` works too:**
+```java
+String s = "a";
+s += "b";   // s is now "ab"
+```
 
+> **EXAM TRAP**: `String x = 1;` does NOT compile. You'd need `String.valueOf(1)`. This is not automatic.
 
-public String toLowerCase()
-public String toUpperCase()
+---
 
-returns news, original stays same
+## String Methods
 
+`length()` is a **method** for String (not a property like arrays — don't mix them up).
 
-equals(Object obj)
-equalsIgnoreCase(String str)
+| Method | Description |
+|---|---|
+| `length()` | number of characters |
+| `charAt(int index)` | character at index (0-based) |
+| `indexOf(char)` | first occurrence, or -1 |
+| `indexOf(char, int fromIndex)` | starts searching from fromIndex |
+| `indexOf(String)` | first occurrence of substring |
+| `indexOf(String, int fromIndex)` | starts searching from fromIndex |
+| `codePointAt(int index)` | Unicode code point at index (code points > char size) |
+| `codePointBefore(int index)` | code point before index |
+| `codePointCount(int begin, int end)` | count of code points in range |
 
+### substring — "the trickiest"
+
+```java
+substring(int startIndex)                   // from startIndex to end
+substring(int startIndex, int endIndex)     // [startIndex, endIndex) — endIndex is EXCLUSIVE
+```
+
+```java
+String s = "animal";
+s.substring(3);      // "mal"
+s.substring(3, 4);   // "m"
+s.substring(3, 3);   // "" — same index → EMPTY STRING (not an error!)
+s.substring(3, 2);   // throws StringIndexOutOfBoundsException — backward = bad
+```
+
+> **EXAM TRAP**: Same start and end index → **empty string**, not an exception. Reversed (start > end) → exception.
+
+### Case, Equality, Search
+
+```java
+toLowerCase()
+toUpperCase()
+// returns NEW string — originals untouched (immutable, remember)
+
+equals(Object obj)          // logical equality — checks actual content
+equalsIgnoreCase(String s)
+
+startsWith(String prefix)
+startsWith(String prefix, int fromIndex)   // starts checking from fromIndex
+endsWith(String suffix)
+
+contains(CharSequence seq)
+```
+
+### replace
+
+```java
+replace(char oldChar, char newChar)
+replace(CharSequence target, CharSequence replacement)
+```
+
+> No regex here — that's `replaceAll()` / `replaceFirst()`. Plain `replace()` does literal replacement.
+
+### Whitespace removal
+
+```java
+trim()             // removes \t, \r, \n, and space from start/end
+strip()            // same as trim() + Unicode whitespace support (the upgrade)
+stripLeading()     // start only
+stripTrailing()    // end only
+```
+
+Unicode whitespace character: `'\u2000'` — `strip()` handles it, `trim()` doesn't.
+
+### indent and stripIndent
+
+```java
+indent(int n)       // adds n spaces to each line; also NORMALIZES whitespace:
+                    //   1. adds \n to end if missing
+                    //   2. converts all line breaks → \n (rip Windows \r\n)
+
+stripIndent()       // removes incidental whitespace (common leading spaces)
+                    // also normalizes line breaks, but DOES NOT add \n at end
+```
+
+> **EXAM TRAP**: `indent()` adds `\n` at the end if missing. `stripIndent()` does NOT. They both normalize, but differ on this one thing.
+
+### isEmpty vs isBlank
+
+```java
+isEmpty()    // true only for ""  — absolutely nothing
+isBlank()    // true for "" or "   " or "\t" — anything that's all whitespace
+```
+
+### Formatting
+
+```java
+String.format("Hello %s, you are %d years old", name, age);
+"Hello %s, you are %d years old".formatted(name, age);   // instance method version
+```
+
+| Format flag | Meaning |
+|---|---|
+| `%s` | String |
+| `%d` | integer |
+| `%f` | float (default: 6 decimal places) |
+| `%n` | system-dependent line separator (fu Windows) |
+| `%.2f` | 2 decimal places, rounding applied (NOT truncation) |
+| `%10.2f` | total width 10, 2 decimal places |
+| `%010.2f` | total width 10 with zero-padding |
+
+> **EXAM TRAP**: Mismatching format type (e.g., `%d` with a String) throws `IllegalFormatConversionException` at runtime, not compile time.
+
+### Method Chaining
+
+String methods return new Strings, so you can chain them:
+```java
+String result = "  Hello World  ".strip().toLowerCase().replace("hello", "hi");
+```
+
+---
+
+## StringBuilder — NOT Immutable
+
+Unlike String, StringBuilder modifies itself in place. All mutating methods return a reference to the **same object** (useful for chaining, but don't be fooled — it's the same one).
+
+`StringBuffer` — thread-safe version, but slower. Not really on the exam.
+
+### Constructors
+
+```java
+new StringBuilder()               // empty, default capacity 16
+new StringBuilder("initial")      // initialized with string
+new StringBuilder(int capacity)   // empty with specified capacity
+```
+
+### Methods
+
+```java
+append(...)           // adds to end, many overloads
+appendCodePoint(int)  // appends Unicode code point
+insert(int offset, ...) // inserts at position
+
+delete(int start, int end)    // removes [start, end)
+deleteCharAt(int index)       // removes single character
+
+replace(int start, int end, String replacement)   // delete + insert (different signature from String!)
+reverse()             // REVERSE EXISTS FOR STRINGBUILDER, NOT FOR STRING
+
+substring(int start)                  // returns a NEW String — does NOT modify StringBuilder
+substring(int start, int end)         // same — returns String, SB unchanged
+
+length()
+charAt(int index)
+indexOf(String str)
 toString()
+```
 
-- the following two need to be overridden at the same time sort of
-equals(Object) 
-hashCode()
-because a.equals(b) <-> a.hashCode() == b.hashCode()
-will cause issues with HashMap and HashSet
+> **CRITICAL**: `StringBuilder.equals()` is NOT overridden. It does reference equality (like `==`). To compare content, do `.toString().equals(other.toString())`.
 
+> **EXAM TRAP**: `String name = "x"; StringBuilder sb = new StringBuilder("x"); name == sb;` → **DOES NOT COMPILE**. You can't use `==` between different types like String and StringBuilder.
 
-startsWith()
-endsWith() 
+---
 
-contains()
+## String Pool (Intern Pool)
 
-replace(char, char)
-replace(charSeq, charSeq)
+Location in the JVM that holds string literals and compile-time constants.
 
-white space removal: (\t, \r, \n)
-trim()
-strip() = trim() + unicode support
+```java
+String x = "Hello World";          // goes into the pool
+String y = new String("Hello World");  // bypasses pool — new object on heap
+System.out.println(x == y);        // false — different references
+System.out.println(x.equals(y));   // true — same content
+```
 
-Unicode whitespace character = '\u2000'
+**Compile-time constants** go into the pool automatically:
+```java
+String a = "rat" + 1;               // compile-time constant → pool
+String b = "r" + "a" + "t";         // compile-time constant → pool
 
-variations of strip: 
-stripLeading()
-stripTrailing()
+String num = "1";
+String c = "rat" + num;             // NOT compile-time constant (num is a variable) → heap
+String d = "rat" + new String("1"); // NOT compile-time constant → heap
+```
 
-indent(noOfIndents) -> extra shit it does for some reason: normalizes the whitespace
-normalizing? 1. adds \n to end of string, 2. any line break -> \n (fuck you windows), 
+**`intern()`** — forces use of pool reference if one exists:
+```java
+String x = new String("hello").intern();   // now points to pool version
+```
 
-stripIndent()
-- gets rid of all incidental whitespaces
+> **NOTE**: Don't use `intern()` or `==` for string comparison in real code. They're exam bait. Always use `.equals()` in the real world.
 
-apparently both of these normalize, BUT STRIP INDENT DOES NOT ADD \n AT THE END IF MISSING
+---
 
-isEmpty() - "" -> true -> absolutely nothing
-isBlank() - "", "   " -> true -> tbh they're all blank
+## Arrays
 
-either String.format("alsdjfoasdf %s %d", theStr, theInt) 
-or "alsdjfoasdf %s %d".formatted(theStr, theInt);
+An array is an area of memory on the **heap**. `char[] letters` is a **reference variable**, not a primitive.
 
-%n -> for system dependent line separators (fu windows)
+### Creation
 
-%f -> default = 6 digits after decimal point 
-%.digitf - rounding applied, not truncation 
-total length of output %totaldigits.
+```java
+int[] nums = new int[3];           // default values: 0 for int, null for objects
+int[] more = {12, 13, 53};         // anonymous array — type inferred
+int[] nums2 = new int[]{1, 2, 3};  // explicit anonymous array
 
-%012f, [o -> 00003.141593] including zero total 12, since after . count not specified, default 6 digits applied 
+int[] ids, types;     // TWO int[] arrays
+int ids[], types;     // ids is int[], types is plain int — sneaky!
+```
 
-method chaining
+> **EXAM TRAP**: The bracket placement matters. `int[] a, b` = two arrays. `int a[], b` = one array, one int.
 
-StringBuilder - NOT immutable
-StringBuffer -> thread support, sth negative, forgot already
-new StringBuilder(size?)
+### Properties
 
-appendCodePoint(int)
-insert()
+```java
+arr.length   // PROPERTY, not a method (unlike String's length())
+             // returns declared size regardless of how many elements are filled
+```
 
-delete(st, ed)
-deleteCharAt()
+### Printing
 
-replace() -> different for StringBuilder (delete + insert)
-reverse() -> REVERSE EXISTS FOR STRINGBUILDER AND NOT STRING
+```java
+Arrays.toString(arr);     // [1, 2, 3] — nice
+arr.toString();           // [I@4e50df2e — garbage, don't use
+```
 
-it says i saw earlier that equals() uses logical equality rather than object equality for String objects
-but i have no memory of this
+### Sorting
 
-StringBuilder authors were lazy and didn't bother to implement the equals method properly so now to check equality 
-you have to first .toString() that thing and then check with .equals()
+```java
+Arrays.sort(arr);
+```
 
-String pool aka the intern pool -> location in JVM that collects all strings
-string pool has literal values and constanst that appear in program
+String sort order: **numbers < uppercase < lowercase**. Mnemonic: **"7Up"** (7 < U < p... sort of).
 
-intern() -> will use an object in the string pool if one is present
+```java
+String[] words = {"cat", "Apple", "123"};
+Arrays.sort(words);   // ["123", "Apple", "cat"]
+```
 
-even as i'm reading, compile time consts are getting confusing
+### Binary Search
 
-never use intern() or == -> they're for the exam 
+```java
+Arrays.binarySearch(arr, target)
+```
 
-array -> area of memory on heap
+- Array **must be sorted** first — otherwise result is undefined (garbage)
+- Found → returns the **index**
+- Not found → returns **negative**: `-(insertion point) - 1`
 
-char[] letters; -> a reference variable, not a primitive one
+```java
+int[] arr = {2, 4, 6, 8};
+Arrays.binarySearch(arr, 4);    // 1 (found at index 1)
+Arrays.binarySearch(arr, 3);    // -2 (would insert at index 1, so -(1)-1 = -2)
+```
 
-array == ordered list uwu
+### Comparing Arrays
 
-int[] nums = new int[3];
-int[] more = {12, 13, 53}; // anonymous array 
-int conf[], sth; // valid apparently
+```java
+Arrays.equals(arr1, arr2)
+// checks same size + same elements + same order
+// unlike arr1 == arr2 which is just reference equality (same object)
+// note: arrays don't override equals() — so arr.equals(other) is also reference equality!
+```
 
-arrays are objects so can call .equals() on them 
-but it does not look at the elements of the array 
-just the reference [should be obvious by now ig]
+```java
+Arrays.compare(arr1, arr2)
+// 0      → equal
+// < 0    → arr1 is "smaller" (first array is lexicographically first)
+// > 0    → arr1 is "larger"
+// null is the smallest
+// shorter array that is a prefix of a longer one → shorter is smaller
+```
 
-to print an array nicely:
-Arrays.toString(arra);
-arra.toString() returns other stuff arrayType;@hashCode
+```java
+Arrays.mismatch(arr1, arr2)
+// equal arrays → returns -1
+// otherwise → returns first index where they differ
+```
 
-array doesn't allocate space for the objects, it allocates space for the reference to those objects
+### Multi-Dimensional / Jagged Arrays
 
-arra.length -> prop, not a method the way it is for String 
-and it doesn't care if the array is populated or not 
+```java
+int[][] grid = new int[3][4];   // 3 rows, 4 columns — rectangular
 
-Arrays.sort()
-Arrays.binarySearch(arra, targetNumber)
+int[][] jagged = new int[2][];  // 2 rows, column count per row varies
+jagged[0] = new int[5];
+jagged[1] = new int[3];
+```
 
-array not sorted -> output unpredictable
+### Varargs
 
-equals -> == - object reference check, otherwise size + element + order
-compare -> 0 means equals, negative -> 1st smaller, positive -> 1st larger
-and a bunch of other stuff
+A varargs parameter (`String... args`) can be used just like an array — iterate it, check `.length`, pass an array directly.
 
-null is the smallest 
+---
 
-Arrays.compare() -> both must be of the same type
+## Math API
 
-mismatch -> equal - returns -1 
-otherwise returns first index where they differ
+All methods are `static` on `java.lang.Math`.
 
-int [][] args = new int[2][];
-args[0] = new int[5];
-args[1] = new int[3];
+```java
+Math.min(a, b)    // returns the smaller — same type as inputs
+Math.max(a, b)    // returns the larger — same type as inputs
 
-rounding double -> returns long 
-rounding float -> returns int
+Math.round(double d)   // → long  (rounds .5 up, i.e., toward positive infinity)
+Math.round(float f)    // → int
 
-ceil, floor (double) -> return double 
+Math.ceil(double d)    // → double  (rounds UP to next whole number)
+Math.floor(double d)   // → double  (rounds DOWN to next whole number)
 
-pow(double num, double exponent) -> return double
-Math.random() -> return double 
+Math.pow(double base, double exp)   // → double
 
-BigInteger
-BigDecimal -> calcs involving money
-^^ immutable classes
+Math.random()   // → double in [0.0, 1.0)
+```
 
-use valueOf for these two
+> **CRITICAL**: `round()` return type depends on input type. float → int. double → long. Don't mix these up. `ceil` and `floor` always return double regardless.
 
+---
 
-LocalDate - no time, no time zone
-LocalTime - no date, no time zone
-LocalDateTime - date + time, no time zone
-ZonedDateTime - date + time + time zone
+## BigInteger and BigDecimal
 
-now() for all of them uwu
-UTC == GMT
-+02:00 == GMT + 2 == UTC + 2
+Both are **immutable** classes. Use them when you need:
+- `BigInteger`: arbitrarily large integers
+- `BigDecimal`: precise decimal math (money calculations — floating-point error is real: `64.1 * 100 = 6409.999...`)
 
-date and time classes have private constructors 
-new LocalDate() // DOES NOT COMPILE
+### Creation
 
-date and time classes are immutable
+```java
+BigInteger big = BigInteger.valueOf(100L);   // use valueOf, not new
+BigDecimal dec = BigDecimal.valueOf(19.99);  // use valueOf
 
-With LocalDate
-plusDays
-plusWeeks
-plusMonths
-plusYears
+// BigInteger accepts long; BigDecimal also accepts double
+```
 
-the with methods -> to create a copy of an object with specified fields altered to specified value 
+### Constants
 
-LocalDate + .atTime() -> LocalDateTime
-LocalTime + .atDate() -> LocalDate - idk why not LocalDateTIme
-LocalDateTime + .atZone(zoneId) -> ZonedDateTime
+```java
+BigInteger.ZERO   // 0
+BigInteger.ONE    // 1
+BigInteger.TEN    // 10
+// BigDecimal has the same
+```
 
-cannot chain methods when creating a Period
-Period methods are static 
+### Methods (returns new object — immutable)
 
-Period >= day -> output with P
-Duration -> days, hours, minutes, seconds, nanoseconds
--> output with PT
+```java
+add(BigDecimal other)
+subtract(BigDecimal other)
+multiply(BigDecimal other)
+divide(BigDecimal other)
+max(BigDecimal other)
+```
 
-ChronoUnit - has sth called HALF_DAYS (12 hours)
+> **EXAM TRAP**: `BigDecimal result = a + b;` DOES NOT COMPILE. No operator overloading in Java. Use `.add()`.
 
--- too many small details in this section
+---
 
+## Date and Time API
+
+`import java.time.*;`
+
+All use the **factory pattern** — private constructors, static factory methods.
+
+```java
+new LocalDate()   // DOES NOT COMPILE — constructor is private
+LocalDate.now()   // correct
+LocalDate.of(2026, 4, 20)   // correct
+```
+
+All are **immutable**. Modifying methods return new objects.
+
+### The Four Classes
+
+| Class | Has Date? | Has Time? | Has Time Zone? |
+|---|---|---|---|
+| `LocalDate` | Yes | No | No |
+| `LocalTime` | No | Yes | No |
+| `LocalDateTime` | Yes | Yes | No |
+| `ZonedDateTime` | Yes | Yes | Yes |
+
+### Creating Instances
+
+```java
+LocalDate.of(int year, int month, int dayOfMonth)
+LocalDate.of(int year, Month month, int dayOfMonth)   // Month enum: JANUARY etc.
+LocalTime.of(int hour, int minute)
+LocalTime.of(int hour, int minute, int second, int nanosecond)
+LocalDateTime.of(LocalDate, LocalTime)
+ZonedDateTime.of(LocalDateTime, ZoneId)
+
+ZoneId.of("US/Eastern")
+ZoneId.of("Europe/Paris")
+```
+
+Months count from **1** in this API (January = 1). Or use the `Month` enum: `Month.JANUARY`.
+
+```java
+LocalDate.of(2026, 1, 32)   // DateTimeException — Jan only has 31 days
+```
+
+`+02:00 == GMT+2 == UTC+2`
+
+### Manipulating Date/Time
+
+All return new objects (immutable):
+
+| Method type | LocalDate | LocalTime | LocalDateTime | ZonedDateTime |
+|---|---|---|---|---|
+| `plusDays/minusDays` | ✓ | | ✓ | ✓ |
+| `plusWeeks/minusWeeks` | ✓ | | ✓ | ✓ |
+| `plusMonths/minusMonths` | ✓ | | ✓ | ✓ |
+| `plusYears/minusYears` | ✓ | | ✓ | ✓ |
+| `plusHours/minusHours` | | ✓ | ✓ | ✓ |
+| `plusMinutes/minusMinutes` | | ✓ | ✓ | ✓ |
+| `plusSeconds/minusSeconds` | | ✓ | ✓ | ✓ |
+| `plusNanos/minusNanos` | | ✓ | ✓ | ✓ |
+
+`with*` methods create a copy with a specific field set to a given value (e.g., `withDayOfMonth(15)`).
+
+### Comparing
+
+```java
+date1.isBefore(date2)
+date1.isAfter(date2)
+```
+
+### Converting Between Types
+
+```java
+LocalDate.atTime(LocalTime)          // → LocalDateTime
+LocalDate.atStartOfDay()             // → LocalDateTime (at 00:00)
+LocalTime.atDate(LocalDate)          // → LocalDateTime (NOT LocalDate — easy to mix up)
+LocalDateTime.atZone(ZoneId)         // → ZonedDateTime
+ZonedDateTime.toInstant()            // → Instant (shows as GMT, loses time zone)
+```
+
+> **EXAM TRAP**: `LocalTime.atDate()` returns `LocalDateTime`, not `LocalDate`.
+
+---
+
+## Period
+
+Date-based amounts — years, months, days. No time units.
+
+```java
+Period.ofYears(1)
+Period.ofMonths(3)
+Period.ofWeeks(2)
+Period.ofDays(5)
+Period.of(1, 2, 3)    // 1 year, 2 months, 3 days
+```
+
+> **CRITICAL**: Static factory methods — **cannot be chained**. `Period.ofYears(1).ofMonths(2)` just gives you `ofMonths(2)` — `ofYears` result is discarded. Use `Period.of(1, 2, 0)` instead.
+
+Output format: `P` prefix, then `[n]Y[n]M[n]D`. Zero parts omitted:
+```
+Period.ofYears(1)         → P1Y
+Period.of(1, 2, 3)        → P1Y2M3D
+Period.ofDays(5)          → P5D
+```
+
+Periods can be **positive or negative**.
+
+Works with: `LocalDate`, `LocalDateTime`
+
+---
+
+## Duration
+
+Time-based amounts — days, hours, minutes, seconds, nanoseconds.
+
+```java
+Duration.ofHours(2)
+Duration.ofMinutes(30)
+Duration.ofSeconds(45)
+Duration.ofDays(1)    // 24 hours, not calendar days
+```
+
+Output format: `PT` prefix, e.g., `PT2H30M`.
+
+Works with: `LocalTime`, `LocalDateTime`, `ZonedDateTime`
+
+> **CRITICAL**: Period and Duration are **not interchangeable**. Duration has time units — won't work with `LocalDate`. Period has date units — won't work with `LocalTime`.
+
+---
+
+## ChronoUnit
+
+For calculating differences:
+
+```java
+ChronoUnit.HOURS.between(startTime, endTime)    // truncates, does NOT round
+ChronoUnit.DAYS.between(date1, date2)
+```
+
+`ChronoUnit` implements `TemporalUnit`. Notable value: `ChronoUnit.HALF_DAYS` (12 hours, because apparently someone needed that).
+
+---
+
+## Instant
+
+A specific **point in time** (think epoch milliseconds but with nanosecond precision).
+
+```java
+Instant now = Instant.now();
+Instant fromZoned = zonedDateTime.toInstant();   // strips time zone, shows as GMT/UTC
+```
+
+> **CRITICAL**: Cannot convert `LocalDateTime` directly to `Instant` — it has no time zone info, so the JVM can't determine the absolute point in time.
+
+---
+
+## DST — Daylight Saving Time
+
+Creating a time that doesn't exist (e.g., 2:30 AM when clocks jump to 3 AM) → Java **rolls forward** to the valid time.
+
+2026 transitions (US):
+- **March 8** — spring forward (clocks jump from 2:00 → 3:00, 2:xx doesn't exist)
+- **November 1** — fall back (clocks go 1:59 → 1:00, 1:xx happens twice)
+
+`ZonedDateTime.getOffset()` → returns a `ZoneOffset` (e.g., `-05:00`)
+
+---
+
+## Review Mistakes — Key Reminders
+
+**Q1** — Answer is `f`. You can't just do `String x = 1;` — assigning an `int` to a `String` without `String.valueOf()` or `"" + 1` doesn't compile.
+
+**Q2** — Answered `b, c, e`. Missed `f`, wrongly included `b`. Multi-answer: go through every option independently. Don't assume b and c are a pair just because they appeared near each other.
+
+**Q4** — Missed `c`. Core `intern()` mechanic:
+```java
+String a = new String("hi").intern();   // forces pool reference
+String b = "hi";                         // already in pool
+System.out.println(a == b);             // TRUE — both point to same pool object
+```
+`intern()` returns the pooled version if it exists, or adds the string to the pool and returns the new pooled reference. Two interned equal strings will `==` each other.
+
+**Q8** — Wrongly included `e`. The confusion: `length` is a **property** for arrays (`arr.length`), but a **method** for String (`str.length()`). `arr.length()` with parentheses → **DOES NOT COMPILE** for arrays.
+```java
+int[] arr = {1, 2, 3};
+arr.length    // correct — no parens
+arr.length()  // DOES NOT COMPILE
+"hello".length()  // correct — parens required for String
+```
+
+**Q9** — Answered `a, g`. No `g`, missed `c` and `f`. The key thing:
+```java
+int[] a = {1, 2, 3};
+int[] b = {1, 2, 3};
+a.equals(b);           // false — arrays don't override equals(), uses Object reference equality
+Arrays.equals(a, b);   // true — this one actually compares elements
+```
+Arrays are objects, so you *can* call `.equals()` — it just doesn't do what you want.
+
+**Q12** — Missed `e`. Slow down on multi-answer questions and check every option.
+
+**Q14** — Answered `c, f`. Wrong: no `c`, missed `b`. The date conversion methods:
+```java
+LocalDate date = LocalDate.of(2026, 4, 20);
+date.atTime(LocalTime.of(9, 0))    // → LocalDateTime  ✓ (atTime, not withTime!)
+date.atStartOfDay()                // → LocalDateTime at 00:00  ✓
+```
+It's `atTime()`, NOT `withTime()`. `with*` methods are for setting fields (e.g., `withDayOfMonth(15)`), not for conversion.
+
+**Q16** — Answered `a, f, h`. Missed `g`. Same index in `substring()`:
+```java
+"animal".substring(3, 3)   // "" — empty string, NOT an error
+"animal".substring(3, 2)   // StringIndexOutOfBoundsException — backward IS an error
+```
+Same start/end → empty string. Start > end → exception. Don't mix these up.
+
+**Q17** — Wrongly included `e`. Read each option in isolation — just because `c` and `f` are right doesn't mean `e` is.
+
+**Q20** — Missed `a`. `StringBuilder.reverse()` modifies the **original object** (it's mutable):
+```java
+StringBuilder sb = new StringBuilder("cat");
+sb.reverse();
+System.out.println(sb);   // "tac" — the SAME object is now reversed
+```
+String has no `reverse()`. For String you'd need to wrap it in a StringBuilder.
+
+---
+
+**Confusion Topics from Test — Resolved:**
+
+**`intern()`** — returns the pooled reference; forced `==` equality between strings with same content. Only matters for exam questions.
+
+**`Math.round()` return types:**
+```java
+Math.round(3.7f)    // returns int  — float input → int output
+Math.round(3.7)     // returns long — double input → long output
+Math.random()       // returns double in [0.0, 1.0)
+```
+
+**`StringBuilder.replace()` vs `String.replace()`:**
+```java
+// String:
+str.replace('a', 'b')                      // char to char
+str.replace("old", "new")                  // CharSequence to CharSequence
+
+// StringBuilder:
+sb.replace(int start, int end, String str) // totally different — it's delete(start,end) + insert
+```
+
+**Arrays and mutability** — arrays ARE mutable in content (you can change `arr[0] = 5`), but their **size** is fixed after creation. You can't add or remove elements from an array.
+
+**`StringBuilder` constructors:**
+```java
+new StringBuilder()          // empty, capacity 16
+new StringBuilder("hello")   // initialized with "hello"
+new StringBuilder(32)        // empty, capacity 32
+```
+
+**`StringBuilder.substring()`** — yes, StringBuilder has `substring()`, but it returns a **new String**, NOT a modified StringBuilder:
+```java
+StringBuilder sb = new StringBuilder("hello");
+String s = sb.substring(1, 3);   // "el" — sb is still "hello"
+```
+
+**`Arrays.mismatch()`** — equal arrays return `-1` (counterintuitive but that's what it is):
+```java
+Arrays.mismatch(new int[]{1,2,3}, new int[]{1,2,3})   // -1 (equal)
+Arrays.mismatch(new int[]{1,2,3}, new int[]{1,9,3})   // 1 (first diff at index 1)
+```
+
+**`getOffset()`** — returns a `ZoneOffset` object (e.g., `ZoneOffset` of `-05:00`), not a String or int.

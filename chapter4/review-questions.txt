@@ -1,0 +1,37 @@
+1. f cause assigning int to string without a String.valueOf() ?
+2. b, c, e - wrong: b, missed: f 
+3. a, c, d
+4. a, d - wrong: missed c, yeah, need to look into intern again 
+5. b
+6. c
+7. a, e 
+8. a, b, e, f - wrong, no e as it's length() in string (but it's a prop for arrays? look into this again)
+9. a, g - wrong, no g, missed c, f (forgot this: array doesn't override equals() so it uses object equality unlike String)
+10. a
+11. e
+12. a, d - wrong, missed e 
+13. b
+14. c, f - wrong, no c, missed b (atTime is the valid one apparently)
+15. c, e - correct, but was confused 
+16. a, f, h - wrong, no f, h, missed g (same index returns empty string)
+17. c, e, f - wrong, no e 
+18. a, b, d 
+19. a, d 
+20. c - wrong, missed a (reverse changes the original StringBuilder object, is it the same for String?)
+21. a 
+22. e 
+
+forgot and honestly didn't clearly understand intern 
+forgot the return type for round(), random()
+
+confused about StringBuilder / String .replace 
+confused about arrays being immutable 
+confused about StringBuilder initialization 
+forgot about the date related methods like - is it withTime? atTime? 
+doesn;t StringBuilder have substring() ? - i can't remember 
+forgot what mismatch did 
+forgot what getOffset returned 
+
+
+round() returns int when called with float 
+returns long when called with double 
