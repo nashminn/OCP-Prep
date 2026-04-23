@@ -67,10 +67,12 @@ Week 2 starts on schedule — Ch. 4–5 are independent of the Ch. 1/3 weak area
 | ~~Tue Apr 14~~ | *(on break)* |
 | ~~Wed Apr 15~~ | ~~Ch. 4 (part 1 + part 2)~~: Strings, StringBuilder, Arrays, Math API, Date/Time API ✓ |
 | ~~Thu Apr 16 – Sun Apr 19~~ | *(sick days)* |
-| Sun Apr 20 | ~~Ch. 4 review questions~~ ✓ + Ch. 14 (part 1): Path, Files, NIO.2 basics |
-| Mon Apr 21 | Ch. 14 (part 2): I/O streams, serialization, `Console` — **presentation ready after this** |
-| Tue Apr 22 | Ch. 5 (full day): Method design, access modifiers, varargs, static members, overloading, pass-by-value *(familiar territory — one day is enough)* |
-| Wed Apr 23 | Review questions Ch. 4–5 + **code**: String pool traps, access modifier scenarios |
+| ~~Sun Apr 20~~ | ~~Ch. 4 review questions~~ ✓ |
+| ~~Mon Apr 21 – Wed Apr 23~~ | *(missed / sick)* |
+| Thu Apr 24 | Ch. 14 (part 1): Path, Files, NIO.2 basics |
+| Fri Apr 25 | Ch. 14 (part 2): I/O streams, serialization, `Console` |
+| Sat Apr 26 | Ch. 5 (full day): Method design, access modifiers, varargs, static members, overloading, pass-by-value |
+| Sun Apr 27 | Review questions Ch. 5 + **code**: String pool traps, access modifier scenarios |
 
 **Watch out for:** String pool behavior, `==` vs `.equals()`, overloading resolution order.
 
@@ -83,11 +85,11 @@ Week 2 starts on schedule — Ch. 4–5 are independent of the Ch. 1/3 weak area
 
 | Day | Task |
 |-----|------|
-| Thu Apr 24 | Ch. 6 (part 1): Inheritance, constructor chaining, `super` |
-| Fri Apr 25 | Ch. 6 (part 2): Abstract classes, immutable objects, initialization order |
-| Sun Apr 27 | Ch. 7 (part 1): Interfaces (default/static/private methods), enums |
-| Mon Apr 28 | Ch. 7 (part 2): **Sealed classes**, **records**, nested classes — Java 21 key topics |
-| Tue Apr 29 | Review questions Ch. 6–7, draw inheritance diagrams by hand + **code**: sealed hierarchy with `permits`, record with compact constructor, `@Override` scenarios |
+| Mon Apr 28 | Ch. 6 (part 1): Inheritance, constructor chaining, `super` |
+| Tue Apr 29 | Ch. 6 (part 2): Abstract classes, immutable objects, initialization order |
+| Wed Apr 30 | Ch. 7 (part 1): Interfaces (default/static/private methods), enums |
+| Thu May 1  | Ch. 7 (part 2): **Sealed classes**, **records**, nested classes — Java 21 key topics |
+| Fri May 2  | Review questions Ch. 6–7, draw inheritance diagrams by hand + **code**: sealed hierarchy with `permits`, record with compact constructor, `@Override` scenarios |
 
 **Watch out for:** Object initialization order, sealed class rules, record constructors.
 > **Assessment gap:** Records and sealed classes are both unfamiliar. Do NOT just read — write code for each. Define a record, use compact constructors, create a sealed hierarchy with `permits`. Get hands-on before moving on.
@@ -99,11 +101,11 @@ Week 2 starts on schedule — Ch. 4–5 are independent of the Ch. 1/3 weak area
 
 | Day | Task |
 |-----|------|
-| Wed Apr 30 | Ch. 8 (part 1): Lambda syntax, functional interfaces, method references |
-| Thu May 1  | Ch. 8 (part 2): Built-in functional interfaces (`Predicate`, `Function`, `Supplier`, `Consumer`, etc.) |
-| Sun May 4  | **Code day** — chain predicates, write method references for all 4 forms, implement `Comparator.comparing()`; review questions Ch. 8 |
-| Mon May 5  | Ch. 9 (part 1): Collections API — `List`, `Set`, `Queue`, `Deque`, `Map`, `SequencedMap` |
-| Tue May 6  | Ch. 9 (part 2): Generics, bounded wildcards (`? extends`, `? super`), `Comparable`/`Comparator` |
+| Mon May 5  | Ch. 8 (part 1): Lambda syntax, functional interfaces, method references |
+| Tue May 6  | Ch. 8 (part 2): Built-in functional interfaces (`Predicate`, `Function`, `Supplier`, `Consumer`, etc.) |
+| Wed May 7  | **Code day** — chain predicates, write method references for all 4 forms, implement `Comparator.comparing()`; review questions Ch. 8 |
+| Thu May 8  | Ch. 9 (part 1): Collections API — `List`, `Set`, `Queue`, `Deque`, `Map`, `SequencedMap` |
+| Fri May 9  | Ch. 9 (part 2): Generics, bounded wildcards (`? extends`, `? super`), `Comparable`/`Comparator` |
 
 **Watch out for:** Which functional interface to use when — know the return type signatures cold.
 
@@ -114,10 +116,10 @@ Week 2 starts on schedule — Ch. 4–5 are independent of the Ch. 1/3 weak area
 
 | Day | Task |
 |-----|------|
-| Wed May 7  | **Code day** — write generic classes, wildcard methods, `Comparator` chaining; review questions Ch. 9 |
-| Thu May 8  | Ch. 10 (part 1): Stream pipeline, lazy evaluation, terminal vs intermediate ops |
-| Sun May 11 | Ch. 10 (part 2): Collectors, primitive streams, `Optional` |
-| Mon May 12 | **Code day** — build stream pipelines, collect to maps/groups, chain `Optional`; review questions Ch. 10 |
+| Sun May 11 | **Code day** — write generic classes, wildcard methods, `Comparator` chaining; review questions Ch. 9 |
+| Mon May 12 | Ch. 10 (part 1): Stream pipeline, lazy evaluation, terminal vs intermediate ops |
+| Tue May 13 | Ch. 10 (part 2): Collectors, primitive streams, `Optional` |
+| Wed May 14 | **Code day** — build stream pipelines, collect to maps/groups, chain `Optional`; review questions Ch. 10 |
 
 **Watch out for:** Wildcard rules (covariance/contravariance), `Comparator` chaining, `Collectors.groupingBy` vs `partitioningBy`.
 
@@ -128,10 +130,10 @@ Week 2 starts on schedule — Ch. 4–5 are independent of the Ch. 1/3 weak area
 
 | Day | Task |
 |-----|------|
-| Tue May 13 | Ch. 11 **DEEP DIVE** — Exceptions: hierarchy, checked/unchecked, multi-catch, try-with-resources |
-| Wed May 14 | **Code day** — write custom exceptions, chained exceptions, try-with-resources with multiple resources; review questions Ch. 11 |
-| Thu May 15 | Ch. 12 (part 1): Module system basics — `module-info.java`, `requires`, `exports` |
-| Sun May 17 | Ch. 12 (part 2): Services, open modules, `jlink`, `jdeps`, migration strategies; review questions Ch. 12 |
+| Thu May 15 | Ch. 11 **DEEP DIVE** — Exceptions: hierarchy, checked/unchecked, multi-catch, try-with-resources |
+| Fri May 16 | **Code day** — write custom exceptions, chained exceptions, try-with-resources with multiple resources; review questions Ch. 11 |
+| Sun May 18 | Ch. 12 (part 1): Module system basics — `module-info.java`, `requires`, `exports` |
+| Mon May 19 | Ch. 12 (part 2): Services, open modules, `jlink`, `jdeps`, migration strategies; review questions Ch. 12 |
 
 **Watch out for:** Modules are exam-heavy and unfamiliar to most developers — give it extra time.
 
@@ -142,12 +144,12 @@ Week 2 starts on schedule — Ch. 4–5 are independent of the Ch. 1/3 weak area
 
 | Day | Task |
 |-----|------|
-| Mon May 18 | Ch. 13 (part 1): Concurrency fundamentals — threads, `Runnable`/`Callable`, `ExecutorService`, thread lifecycle |
-| Tue May 19 | Ch. 13 (part 2): Atomic classes, `CyclicBarrier`, concurrent collections, **virtual threads** (Java 21) |
-| Wed May 20 | **Code day** — write `ExecutorService` tasks, use `AtomicInteger`, spin up virtual threads; review questions Ch. 13 |
-| Thu May 21 | Ch. 14 revisit — review questions only (already studied; 1 hr max) + "Exam Essentials" for Concurrency, Streams, and Exceptions |
-| Fri May 22 | Full timed practice test (simulate exam: 50 questions, 120 min, no book) |
-| Sat May 23 | Review wrong answers |
+| Tue May 20 | Ch. 13 (part 1): Concurrency fundamentals — threads, `Runnable`/`Callable`, `ExecutorService`, thread lifecycle |
+| Wed May 21 | Ch. 13 (part 2): Atomic classes, `CyclicBarrier`, concurrent collections, **virtual threads** (Java 21) |
+| Thu May 22 | **Code day** — write `ExecutorService` tasks, use `AtomicInteger`, spin up virtual threads; review questions Ch. 13 |
+| Fri May 23 | Ch. 14 revisit — review questions only (already studied; 1 hr max) + "Exam Essentials" for Concurrency, Streams, and Exceptions |
+| Sat May 24 | Full timed practice test (simulate exam: 50 questions, 120 min, no book) |
+| Sun May 25 | Review wrong answers |
 
 ---
 
