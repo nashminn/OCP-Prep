@@ -69,14 +69,13 @@ Week 2 starts on schedule — Ch. 4–5 are independent of the Ch. 1/3 weak area
 | ~~Thu Apr 16 – Sun Apr 19~~ | *(sick days)* |
 | ~~Sun Apr 20~~ | ~~Ch. 4 review questions~~ ✓ |
 | ~~Mon Apr 21 – Wed Apr 23~~ | *(missed / sick)* |
-| Thu Apr 24 | Ch. 14 (part 1): Path, Files, NIO.2 basics |
-| Fri Apr 25 | Ch. 14 (part 2): I/O streams, serialization, `Console` |
-| Sat Apr 26 | Ch. 5 (full day): Method design, access modifiers, varargs, static members, overloading, pass-by-value |
-| Sun Apr 27 | Review questions Ch. 5 + **code**: String pool traps, access modifier scenarios |
+| ~~Thu Apr 24 – Sun Apr 27~~ | *(on break)* |
+| Mon Apr 28 | Ch. 5 (full): Method design, access modifiers, varargs, static members, overloading, pass-by-value |
+| Tue Apr 29 | Ch. 14 review questions + gap fill (reading notes already exist — focus on what's missing) |
 
 **Watch out for:** String pool behavior, `==` vs `.equals()`, overloading resolution order.
 
-> **Note on Ch. 14:** Covered early for the presentation — no need to re-study from scratch at the end. A short review session before the practice test is all that's needed.
+> **Note on Ch. 14:** You already started reading Ch. 14 before the break (notes in chapter14/notes.md). Tue Apr 29 is review questions + gaps only — not a full re-read.
 
 ---
 
@@ -85,11 +84,11 @@ Week 2 starts on schedule — Ch. 4–5 are independent of the Ch. 1/3 weak area
 
 | Day | Task |
 |-----|------|
-| Mon Apr 28 | Ch. 6 (part 1): Inheritance, constructor chaining, `super` |
-| Tue Apr 29 | Ch. 6 (part 2): Abstract classes, immutable objects, initialization order |
-| Wed Apr 30 | Ch. 7 (part 1): Interfaces (default/static/private methods), enums |
-| Thu May 1  | Ch. 7 (part 2): **Sealed classes**, **records**, nested classes — Java 21 key topics |
-| Fri May 2  | Review questions Ch. 6–7, draw inheritance diagrams by hand + **code**: sealed hierarchy with `permits`, record with compact constructor, `@Override` scenarios |
+| Wed Apr 30 | Ch. 6 (part 1): Inheritance, constructor chaining, `super` |
+| Thu May 1  | Ch. 6 (part 2): Abstract classes, immutable objects, initialization order |
+| Fri May 2  | Ch. 7 (part 1): Interfaces (default/static/private methods), enums |
+| Sat May 3  | Ch. 7 (part 2): **Sealed classes**, **records**, nested classes — Java 21 key topics |
+| Sun May 4  | Review questions Ch. 6–7, draw inheritance diagrams by hand + **code**: sealed hierarchy with `permits`, record with compact constructor, `@Override` scenarios |
 
 **Watch out for:** Object initialization order, sealed class rules, record constructors.
 > **Assessment gap:** Records and sealed classes are both unfamiliar. Do NOT just read — write code for each. Define a record, use compact constructors, create a sealed hierarchy with `permits`. Get hands-on before moving on.
