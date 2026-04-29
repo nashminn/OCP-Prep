@@ -51,6 +51,11 @@ public class Precedence {
         k += (++k) + (k++); // because this is equal to k = k + (rhs)
         System.out.println(k);
 
+        k = 0;
+        k += ++k + k++ + (k = 5) + k-- + --k;
+        System.out.println(k);
+
+
         long a = 100000000L;
         long b = 100000000L;
         System.out.println(a * b);
