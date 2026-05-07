@@ -1,0 +1,22 @@
+1. a, e
+2. b, c 
+3. a, d
+4. a, b, c, d, e, f - got confused again about assigning a primitive int to a double type variable
+--- WRONG only a, b, c, e, sth cannot be both promoted and autoboxed 
+5. a, c, d
+6. a, b, f - slightly confused about whether there can only be one varargs param
+7. d, f - unsure about the format {}, it needed to be new boolean[] {true, true}
+8. b, c, d - WRONG, correct: only D
+9. b, d, f - WRONG, missed: c - contructor had package access here 
+10. b - highly confused here 
+11. b, e - know the issue but double counting ?
+12. b
+13. a WRONG, only d here, that was an instance initializer, not a static one 
+14. c WRONG, only e static final variable must set either in the declaration line or in a static initializer block 
+15. b
+16. e
+17. d WRONG, only b - a dumb one 
+18. a, d, e , WRONG, it's b, d, e 
+19. b, c, e, f - confused here, was WRONG, it's b, c, e (no F), AGAIN CANNOT ACCESS INSTANCE STUFF FROM STATIC CONTEXT 
+20. a, e 
+21. b, WRONG, missed d -- but the answer just confused me even more, D does conflict
