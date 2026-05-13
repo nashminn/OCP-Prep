@@ -1,0 +1,278 @@
+Chapter 2 — Operators: Answer Key
+===================================
+
+Q1 — Pre-fix vs Post-fix: What Prints?
+Answer: A, D, E, G
+
+Trace step by step:
+  x starts at 5.
+  x++  → returns 5 (old value), THEN x becomes 6. Prints 5.     → A
+  ++x  → x becomes 7 first, then returns 7.         Prints 7.     → D
+  x--  → returns 7 (old value), THEN x becomes 6.  Prints 7.     → E
+  --x  → x becomes 5 first, then returns 5.         Prints 5.     → G
+
+Rule: post-fix returns the value BEFORE the change; pre-fix returns AFTER.
+
+----------------------------------------
+
+Q2 — Unary Operators: Which Compile?
+Answer: C, D, E, F
+
+A: `!5` — ! is for booleans only, cannot apply to int. Does not compile.
+B: `~true` — ~ (bitwise complement) is for integral types only, not boolean. Does not compile.
+C: `~5` — ~ on int is valid. Result is -(5+1) = -6. Compiles.
+D: `!true` — ! on boolean is valid. Result is false. Compiles.
+E: `!false` — same as D. Compiles.
+F: `-(-5)` — unary minus applied twice. Result is 5. Compiles.
+
+Key rule: ! is boolean-only; ~ is integral-only. They are NOT interchangeable.
+
+----------------------------------------
+
+Q3 — Numeric Promotion: What Type Is the Result?
+Answer: B, C, F, H
+
+A: result1 is byte — WRONG. byte + byte → both promoted to int → result is int.
+B: result1 is int — CORRECT. Rule: byte/short/char always promote to int with binary ops.
+C: result2 is float — CORRECT. short promoted to float; int+float → float.
+D: result2 is double — WRONG. Both sides promote to float, not double.
+E: result3 is int — WRONG. int + long → int promoted to long → result is long.
+F: result3 is long — CORRECT.
+G: result4 is int — WRONG. int + double → int promoted to double.
+H: result4 is double — CORRECT.
+
+Promotion rules in order:
+  1. byte/short/char → int (always, with any binary op)
+  2. smaller → larger (int→long, etc.)
+  3. integral → float if one side is float
+  4. anything → double if one side is double
+
+----------------------------------------
+
+Q4 — Compound Assignment Auto-Cast
+Answer: B, C, E
+
+A: `y = y * x` — y is int, x is long; result is long; cannot assign long to int without cast. Does not compile.
+B: `y *= x` — compound assignment automatically inserts the narrowing cast: y = (int)(y * x). Compiles.
+C: `y = (int)(y * x)` — explicit cast. Compiles.
+D: `b = b + 1` — b is byte; byte + int (1) → int; cannot assign int to byte without cast. Does not compile.
+E: `b += 1` — compound assignment auto-casts: b = (byte)(b + 1). Compiles.
+
+Rule: +=, -=, *=, /=, %= all automatically apply a narrowing cast to match the left-hand type.
+      Plain assignment (=) does NOT.
+
+----------------------------------------
+
+Q5 — Operator Precedence: Trace the Output
+Answer: B) 14, 11, 10
+
+Step by step:
+  a = 2 + 3 * 4 → * before + → 2 + 12 = 14
+  b = 10 - 2 + 3 → left-to-right (same level) → 8 + 3 = 11
+  c = 10 / 2 * 2 → left-to-right (same level) → 5 * 2 = 10
+
+Trap: subtraction and addition have the same precedence and go left-to-right.
+Same for multiplication and division.
+
+----------------------------------------
+
+Q6 — Pre/Post-fix in Expressions
+Answer: C) 12
+
+Trace:
+  a starts at 5.
+  a++ → returns 5 (old value), a becomes 6.
+  ++a → a becomes 7, returns 7.
+  result = 5 + 7 = 12.
+
+Post-fix captures the current value before incrementing;
+pre-fix increments first and then uses the new value.
+
+----------------------------------------
+
+Q7 — Modulo with Negative Numbers
+Answer: A) -1, 1, -1
+
+Rule: the result of % takes the SIGN of the LEFT operand (the dividend).
+
+  -7 % 3:  magnitude = 7 % 3 = 1; left is negative → result is -1
+   7 % -3: magnitude = 7 % 3 = 1; left is positive → result is  1
+  -7 % -3: magnitude = 7 % 3 = 1; left is negative → result is -1
+
+The sign of the RIGHT operand (divisor) is irrelevant to the sign of the result.
+
+----------------------------------------
+
+Q8 — Short-Circuit vs Logical AND
+Answer: A, C
+
+A: s != null & s.length() > 0 — & always evaluates BOTH sides.
+   When s is null, s.length() is still called → NullPointerException.
+
+B: s != null && s.length() > 0 — && short-circuits.
+   When s is null, the right side is SKIPPED. No exception.
+
+C: s != null | s.length() > 0 — | always evaluates BOTH sides → NullPointerException.
+
+D: s != null || s.length() > 0 — || short-circuits.
+   When s is null (left is false for != check... wait: s != null is FALSE),
+   so || checks the right side... actually: s != null is false, so || DOES
+   evaluate the right side → NullPointerException.
+
+Correction: D also throws NPE. Final answer: A, C, D.
+
+Rule: && and || are short-circuit (skip right when result is determined from left).
+      & and | always evaluate both sides, even for booleans.
+
+----------------------------------------
+
+Q9 — XOR Operator
+Answer: A) true, false, false, true
+
+XOR (^) is true only when the two operands DIFFER.
+
+  a ^ b = true ^ false = true   (they differ)
+  a ^ c = true ^ true  = false  (they are the same)
+  b ^ b = false ^ false = false (they are the same)
+  a ^ b ^ c = (true ^ false) ^ true = true ^ true = false
+
+Wait — let me recheck: true ^ false ^ true = true ^ true = false.
+So the last line prints false.
+
+Correct answer: true, false, false, false → that's option A.
+
+----------------------------------------
+
+Q10 — instanceof: Compile-Time Check
+Answer: C only
+
+A: obj instanceof String — obj is Object; String is compatible → compiles.
+B: num instanceof Integer — num IS an Integer → compiles (trivially true).
+C: num instanceof String — num is Integer; Integer can NEVER be a String
+   (no inheritance relationship, and Integer is final) → compile error.
+D: obj instanceof Integer — Object could potentially be an Integer → compiles.
+E: obj instanceof Number — Object could potentially be a Number → compiles.
+
+Rule: if the compiler can prove the cast is IMPOSSIBLE at compile time
+(no inheritance relationship exists), it is a compile error — not a runtime error.
+
+----------------------------------------
+
+Q11 — Casting: Truncation vs Rounding
+Answer: B) 9, 0, -3
+
+Casting a floating-point to an integral type TRUNCATES toward zero — it does NOT round.
+
+  (int) 9.99  → drops .99 → 9       (not 10)
+  (int) -0.9  → drops .9  → 0       (toward zero, not -1)
+  (int) -3.5  → drops .5  → -3      (toward zero, not -4)
+
+"Toward zero" means the decimal part is simply discarded regardless of its magnitude.
+
+----------------------------------------
+
+Q12 — Assignment as an Expression
+Answer: A, E, F
+
+A: `if (healthy = true)` — this is ASSIGNMENT not comparison (= not ==).
+   Assignment returns the assigned value (true). So the condition is always true.
+   Compiles and always prints "A". ✓
+
+B: Wrong description — it always runs, regardless of what healthy was before.
+
+C: Wrong — it compiles fine (just a common gotcha).
+
+D: `if (x = 5)` — x is int, not boolean. An int cannot be used as an if condition
+   in Java. Does NOT compile.
+
+E: Correct — line B does not compile. ✓
+
+F: `int z = (y = 10)` — assignment returns the value assigned.
+   y is set to 10, that value (10) is then assigned to z. Both become 10. Compiles. ✓
+
+----------------------------------------
+
+Q13 — == With References vs Primitives
+Answer: B) true, false, true, true
+
+  a == b     → primitives compared by VALUE → 5 == 5 → true
+  s1 == s2   → references compared by MEMORY ADDRESS → two different objects → false
+  s1 == s3   → s3 = s1, so both point to the SAME object → true
+  s1.equals(s2) → String.equals() compares content → "hi".equals("hi") → true
+
+Rule: == on references checks identity (same object), not equality of content.
+Use .equals() for content comparison.
+
+----------------------------------------
+
+Q14 — Unary Operators: Which Are True?
+Answer: C, D, F
+
+A: False — ! cannot be applied to numeric types (int, etc.). Compile error.
+B: False — ~ cannot be applied to boolean types. Compile error.
+C: True — ~ works on int (and other integral types).
+D: True — ~x == -(x + 1) for all integral types. ~5 = -6, ~0 = -1, etc.
+E: False — post-increment (x++) returns the value BEFORE incrementing.
+F: True — pre-increment (++x) returns the value AFTER incrementing.
+G: False — 0 and false are completely separate in Java. 0 is an int, false is boolean.
+   They cannot be used interchangeably (unlike C/C++).
+
+----------------------------------------
+
+Q15 — Byte Overflow
+Answer: B) -128, -2147483648
+
+Integral overflow silently wraps around — no exception at compile time or runtime.
+
+  byte b = 127; b++  → 127 is the max; wraps to -128 (min value).
+  int i = Integer.MAX_VALUE; i++ → wraps to Integer.MIN_VALUE = -2147483648.
+
+No compiler error, no runtime exception. Overflow is a silent bug.
+
+----------------------------------------
+
+Q16 — Compound Assignment with Post-fix
+Answer: A) 0
+
+Java evaluates the left-hand side of += first, then the right-hand side:
+
+  k starts at 0.
+  Left side of += captures k = 0.
+  Right side: k++ returns 0 (old value), k becomes 1.
+  Result: 0 + 0 = 0. k is assigned 0.
+
+So k ends up as 0, not 1. This is a classic trap combining compound assignment
+with post-fix increment. The left side is captured BEFORE the right side runs.
+
+----------------------------------------
+
+Q17 — Precedence: Post-fix vs Pre-fix
+Answer: A) x=3, y=12
+
+Trace:
+  x starts at 3.
+  ++x → x becomes 4, returns 4.
+  4 * 2 = 8.
+  x-- → returns 4 (current x), x becomes 3.
+  y = 8 + 4 = 12.
+  Final: x=3, y=12.
+
+Post-fix has HIGHER precedence than pre-fix, but both have higher precedence
+than *, so the increment/decrement happens before the multiplication is computed.
+
+----------------------------------------
+
+Q18 — Ternary Operator
+Answer: B) y=2, z=1
+
+Only ONE branch of the ternary executes.
+
+  x > 3 is true (5 > 3), so the true branch runs: y++
+  y++ returns 1 (old value) → z = 1
+  THEN y becomes 2.
+
+The false branch (y--) does NOT run at all.
+Final: y=2, z=1.
+
+===================================
+End of Answer Key

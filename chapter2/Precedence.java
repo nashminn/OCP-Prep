@@ -3,6 +3,8 @@ package chapter2;
 public class Precedence {
 
     public static void main(String[] args) {
+        var var = 8;
+        System.out.println(var);
         int k = 0;
         int someOp = (--k) + (k++);
         System.out.println(k + " " + someOp);
