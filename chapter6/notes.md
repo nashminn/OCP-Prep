@@ -90,3 +90,13 @@ initialize instance of X:
 5. initialize the constructor, including any overloeaded constructors referenced with this() 
 
 GiraffeFamily and Okapi examples were tough, need practice here
+
+to remember:
+1. class initialized at most once by the JVM before it is referenced or used 
+2. static final variables must be assigned a value exactly once, either when they are declared or in a static initializer
+3. all final fields must be assigned a value exactly once, either whey they are declared, in an instance initializer, or in a constructor 
+4. non-final static and instance variables defined without a value are assigned a default value based on their type 
+5. the order of initialization is as follows: variable declarations, then initializers, and final contructors
+
+
+
