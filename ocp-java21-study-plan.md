@@ -78,62 +78,68 @@ Week 2 starts on schedule — Ch. 4–5 are independent of the Ch. 1/3 weak area
 
 ---
 
-## Week 3 — OOP Deep Dive + Ch. 14
-*Chapters 6–7 + Ch. 14 front-load*
+## Week 3 — Ch. 6 + Ch. 7 *(revised from May 20)*
+*Chapters 6–7*
+
+> **Status:** Ch. 6 in progress (page 536). Ch. 11 was skipped; Ch. 14 notes exist, gap fill still pending. Fridays and Saturdays added as light days from here on.
 
 | Day | Task |
 |-----|------|
-| Mon May 11 | Ch. 14 review questions + gap fill (notes already exist in chapter14/notes.md — gaps only, not a re-read) |
-| Tue May 12 | Ch. 6 (part 1): Inheritance, constructor chaining, `super` |
-| Wed May 13 | Ch. 6 (part 2): Abstract classes, immutable objects, initialization order + review questions Ch. 6 |
-| Thu May 14 | Ch. 7 (part 1): Interfaces (default/static/private methods), enums |
-| Fri May 15 | Ch. 7 (part 2): **Sealed classes**, **records**, nested classes + review questions Ch. 7 |
+| Wed May 20 | Finish Ch. 6 reading + review questions Ch. 6 |
+| Thu May 21 | Ch. 7 (part 1): Interfaces — default/static/private methods, multiple inheritance rules, `@FunctionalInterface` |
+| Fri May 22 *(light)* | Ch. 7 (part 2): Enums + sealed classes — read only |
+| Sat May 23 *(light)* | Code: sealed hierarchy with `permits`; record with compact constructor; define and call an enum with abstract method |
+| Sun May 24 | Ch. 7 (part 3): Records + nested classes (static nested, inner, local, anonymous) + review questions Ch. 7 |
 
-**Watch out for:** Object initialization order, sealed class rules, record constructors.
-> **Assessment gap:** Records and sealed classes are both unfamiliar. Do NOT just read — write code for each. Define a record, use compact constructors, create a sealed hierarchy with `permits`. Get hands-on before moving on.
+**Watch out for:** Object initialization order in Ch. 6. For Ch. 7: records can't extend classes, compact constructors can't assign fields directly, sealed class subclasses must be in same package/module.
 
 ---
 
-## Week 4 — Functional Java: Lambdas + Collections
-*Chapters 8–9*
+## Week 4 — Ch. 8 + Ch. 9 + Ch. 10 (start)
+*Chapters 8–10*
 
 | Day | Task |
 |-----|------|
-| Mon May 18 | Ch. 8 (part 1): Lambda syntax, functional interfaces, method references |
-| Tue May 19 | Ch. 8 (part 2): Built-in functional interfaces (`Predicate`, `Function`, `Supplier`, `Consumer`, etc.) + review questions Ch. 8 |
-| Wed May 20 | Ch. 9 (part 1): Collections API — `List`, `Set`, `Queue`, `Deque`, `Map`, `SequencedMap` |
-| Thu May 21 | Ch. 9 (part 2): Generics, bounded wildcards (`? extends`, `? super`), `Comparable`/`Comparator` + review questions Ch. 9 |
-| Fri May 22 | Ch. 10 (part 1): Stream pipeline, lazy evaluation, terminal vs intermediate ops |
+| Mon May 25 | Ch. 8 (part 1): Lambda syntax, effectively final, method references (all 4 forms) |
+| Tue May 26 | Ch. 8 (part 2): Built-in functional interfaces (`Predicate`, `Function`, `Supplier`, `Consumer`, `BiFunction`, etc.) + composition + review questions Ch. 8 |
+| Wed May 27 | Ch. 9 (part 1): `List`, `Set`, `Queue`, `Deque`, `Map`, `SequencedCollection`, `SequencedMap` |
+| Thu May 28 | Ch. 9 (part 2): Generics, bounded wildcards (`? extends`, `? super`), `Comparable`/`Comparator` + review questions Ch. 9 |
+| Fri May 29 *(light)* | Ch. 10 (part 1): Stream pipeline model, lazy evaluation, `filter`, `map`, `flatMap`, `sorted`, `limit` — read only |
+| Sat May 30 *(light)* | Code: write stream pipelines end-to-end — practice `filter` → `map` → `collect`; experiment with `Optional` |
 
-**Watch out for:** Which functional interface to use when — know the return type signatures cold. Wildcard rules (covariance/contravariance).
+**Watch out for:** Which functional interface returns what — know the signatures cold. Wildcard rules: `? extends` = read, `? super` = write. `TreeMap`/`TreeSet` reject null keys.
 
 ---
 
-## Week 5 — Streams, Exceptions & Modules
+## Week 5 — Ch. 10 (finish) + Ch. 11 + Ch. 12
 *Chapters 10–12*
 
 | Day | Task |
 |-----|------|
-| Mon May 25 | Ch. 10 (part 2): Collectors, primitive streams, `Optional` + review questions Ch. 10 |
-| Tue May 26 | Ch. 11 **DEEP DIVE** — Exceptions: hierarchy, checked/unchecked, multi-catch, try-with-resources + review questions Ch. 11 |
-| Wed May 27 | **Code day** — custom exceptions, chained exceptions, try-with-resources with multiple resources |
-| Thu May 28 | Ch. 12 (part 1): Module system basics — `module-info.java`, `requires`, `exports` |
-| Fri May 29 | Ch. 12 (part 2): Services, open modules, `jlink`, `jdeps`, migration strategies + review questions Ch. 12 |
+| Sun May 31 | Ch. 10 (part 2): Terminal ops, `Collectors` (`groupingBy`, `partitioningBy`, `joining`), primitive streams, `Optional` + review questions Ch. 10 |
+| Mon Jun 1 | Ch. 11 **DEEP DIVE**: Exception hierarchy, checked/unchecked, multi-catch, try-with-resources, exception chaining + review questions Ch. 11 |
+| Tue Jun 2 | Ch. 12 (part 1): Module system — `module-info.java`, `requires`, `exports`, `opens` |
+| Wed Jun 3 | Ch. 12 (part 2): Services (`provides`/`uses`), `jlink`, `jdeps`, unnamed/automatic modules, migration + review questions Ch. 12 |
+| Thu Jun 4 | Ch. 13 (part 1): Concurrency fundamentals — thread lifecycle, `Runnable`/`Callable`, `ExecutorService`, `Future` |
+| Fri Jun 5 *(light)* | Ch. 13 (part 2): Atomic classes, `CyclicBarrier`, concurrent collections, **virtual threads** — read only |
+| Sat Jun 6 *(light)* | **Code day**: write `ExecutorService` tasks, retrieve via `Future.get()`, use `AtomicInteger`, spin up virtual threads with `Thread.ofVirtual()` |
 
-**Watch out for:** Modules are exam-heavy and unfamiliar to most developers — give it extra time. `Collectors.groupingBy` vs `partitioningBy`, `Comparator` chaining.
+**Watch out for:** Streams are lazy — nothing runs without a terminal op. Modules: `exports` is compile-time, `opens` is runtime. Resources in try-with-resources close in reverse order.
 
 ---
 
-## Week 6 — Concurrency & Exam Prep
-*Chapter 13 + Full Review*
+## Week 6 — Ch. 13 Review + Ch. 14 + Exam Prep
+*Chapter 13 wrap-up + Ch. 14 gap fill + Practice*
 
 | Day | Task |
 |-----|------|
-| Mon Jun 2 | Ch. 13 (part 1): Concurrency fundamentals — threads, `Runnable`/`Callable`, `ExecutorService`, thread lifecycle |
-| Tue Jun 3 | Ch. 13 (part 2): Atomic classes, `CyclicBarrier`, concurrent collections, **virtual threads** (Java 21) + review questions Ch. 13 |
-| Wed Jun 4 | **Code day** — write `ExecutorService` tasks, use `AtomicInteger`, spin up virtual threads |
-| Thu Jun 5 | Full timed practice test (simulate exam: 50 questions, 90 min, no book) |
-| Fri Jun 6 | Review wrong answers + final pass on weak areas |
+| Sun Jun 7 | Ch. 13 review questions + Ch. 14 gap fill (notes exist in `chapter14/notes.md` — questions and gaps only, no full re-read) |
+| Mon Jun 8 | **Practice test #1** — 50 questions, 90 min, no book; then review every wrong answer |
+| Tue Jun 9 | Targeted re-read of weak chapters from practice test #1 |
+| Wed Jun 10 | Java 21 blitz: sealed classes, records, virtual threads, pattern matching in `switch`, `SequencedCollection` |
+| Thu Jun 11 | **Practice test #2** — 50 questions, 90 min, no book; then review every wrong answer |
+| Fri Jun 12 *(light)* | Final pass on weakest areas only |
+| Sat Jun 13 *(light)* | Rest — or very light read of your own notes if needed |
 
 ---
 

@@ -98,5 +98,28 @@ to remember:
 4. non-final static and instance variables defined without a value are assigned a default value based on their type 
 5. the order of initialization is as follows: variable declarations, then initializers, and final contructors
 
+rules for overriding a method:
+1. child class must have same method signature as the parent class
+2. must be at least as accessible as the parent class
+3. child class may not declare a CHECKED exception that is new or broader than the class of any exception declared in the parent class method 
+4. return value must be the same or a subtype of the method in the parent class, known as covariant return types
+5. the method defined in the child class must be marked as static if it is marked as static in a parent class, the previous 4 rules must be followed while hiding a static method in the child
+
+checked exceptions - IOException, FileNotFoundException (file not found exception is a subclass of io exception)
 
 
+Covariance test:
+given an inherited return type A and an overriding return type B
+can you assign an instance of B to a reference variable for A without a cast?
+
+when a method is correctly overridden, adding the annotation doesn't impact the code
+but when the method is incorrectly overridden, the annotation can prevent me from making a mistake
+
+(for me: how to create an annotation?)
+
+fun fact time
+1. can't override a private method as it's not even inherited in the first place
+2. 1 doesn't mean child can't declare own version of the method, just means that the newly created one isn't an overridden method
+3. STATIC METHODS CANNOT BE OVERRIDDEN but they can be HIDDEN - how? when the child declares a static method with the same name and signature as an inherited static method defined in the parent class - similar but not exactly the same as method overriding
+
+variable overriding - not allowed 
