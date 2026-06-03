@@ -199,8 +199,41 @@ int result = switch (x) {
 };
 ```
 
-- `yield` is only valid **inside a switch expression** — not in switch statements
+> **EXAM CRITICAL — MISSED Q8**: `yield` is ONLY valid inside a switch **expression**. Using `yield` inside a switch **statement** is a compile error — even with arrow syntax. The arrow syntax is not what makes it fail; the absence of an assignment/return makes it a statement.
+
+```java
+// switch STATEMENT — yield is illegal here even with arrow syntax
+switch (x) {
+    case 1 -> { yield 10; }   // DOES NOT COMPILE — yield not valid in statement
+    default -> System.out.println("other");
+}
+
+// switch EXPRESSION — yield is fine
+int r = switch (x) {
+    case 1 -> { yield 10; }   // OK — this is an expression
+    default -> 0;
+};
+```
+
 - `break` in a switch expression would exit the expression entirely without a value — use `yield`
+- Throwing an exception in a case block is a valid alternative to `yield` — no `yield` needed when throwing
+
+### Semicolons in switch Expressions
+
+> **EXAM CRITICAL — MISSED Q2**: Arrow case *expressions* need a terminating `;`. Arrow case *blocks* (`{}`) must NOT have a `;` after the closing `}`.
+
+```java
+String result = switch (val) {
+    case 1 -> "one";          // OK — expression, semicolon required
+    case 2 -> {
+        yield "two";
+    };                        // DOES NOT COMPILE — no semicolon after } of a block
+    case 2 -> {
+        yield "two";
+    }                         // OK — no semicolon after }
+    default -> "other";
+};  // semicolon here is for the assignment statement, not the switch itself
+```
 
 ### Exhaustiveness
 
@@ -255,20 +288,77 @@ switch (obj) {
 ```
 
 - `when` is checked **after** the type match — so `i` is safely cast before the condition runs
-- Cases are evaluated **top to bottom** — more specific `when` conditions must come first
-- Without `when`, a bare `case Integer i` matches **any** Integer including the ones with conditions above — so ordering matters
+- Cases are evaluated **top to bottom** — more specific `when` conditions must come **first**
+- An unguarded `case Integer i` dominates any `case Integer i when ...` that follows it → compile error
+
+> **EXAM CRITICAL — MISSED Q9 & Q10**: Case dominance is a **compile error**, not a runtime issue. A broader type or unguarded case before a narrower/guarded one is caught at compile time as unreachable code.
+
+```java
+// DOMINATED — compile error
+case Integer i             -> "any int";     // broader: matches all Integers
+case Integer i when i > 0  -> "positive";   // COMPILE ERROR — can never be reached
+
+// CORRECT ORDER — specific first
+case Integer i when i > 0  -> "positive";   // guarded, specific
+case Integer i             -> "other int";  // unguarded catch-all for Integer
+
+// DOMINATED by reference type — compile error
+case Number num  -> "number";    // matches ALL Number subtypes
+case Integer i   -> "integer";  // COMPILE ERROR — already matched above
+case Double d    -> "double";   // COMPILE ERROR — already matched above
+```
 
 ### null in switch (Java 21)
 
-- By default, passing `null` to a switch throws `NullPointerException`
-- You can handle it explicitly with `case null ->`
-- `case null, default ->` combines both into one branch
+> **EXAM CRITICAL — MISSED Q11, Q12, Q13 (all three null questions)**
 
+Three rules that must be memorized separately:
+
+**Rule 1 — `default` does NOT catch `null` (Q11)**
+```java
+String fish = null;
+System.out.print(switch (fish) {
+    case "ClownFish" -> "Hello!";
+    case "BlueTang"  -> "Hello again!";
+    default          -> "Goodbye";   // does NOT match null
+});
+// → throws NullPointerException at runtime (compiles fine)
+```
+Even with `default`, passing `null` throws NPE. Only `case null` can catch it.
+
+**Rule 2 — `case null` in a switch *statement* forces exhaustiveness (Q12)**
+```java
+String fish = null;
+switch (fish) {
+    case "ClownFish": System.out.println("Hello!"); break;
+    case "BlueTang":  System.out.println("Hello again!"); break;
+    case null:        System.out.println("null!"); break;
+    // DOES NOT COMPILE — case null counts as pattern matching; switch statement must now be exhaustive (needs default)
+}
+```
+As soon as you write `case null` in a switch statement, it triggers pattern matching rules — the statement must be exhaustive. No `default` → compile error.
+
+**Rule 3 — `case null` cannot appear after `default` (Q13)**
+```java
+System.out.print(switch (fish) {
+    case "ClownFish" -> "Hello!";
+    default          -> "Goodbye";
+    case null        -> "null!";   // DOES NOT COMPILE — default dominates case null
+});
+```
+`default` dominates `case null` — they can never both be needed if `default` comes first. Put `case null` **before** `default`.
+
+**Correct pattern for null handling:**
 ```java
 switch (obj) {
-    case null    -> System.out.println("null!");
+    case null    -> System.out.println("null!");   // null first
     case String s -> System.out.println("string");
-    default      -> System.out.println("other");
+    default      -> System.out.println("other");   // default last
+}
+// or combine:
+switch (obj) {
+    case String s -> System.out.println("string");
+    case null, default -> System.out.println("null or other");
 }
 ```
 
@@ -477,6 +567,26 @@ if (s instanceof String str) { }   // pre-Java 21: DOES NOT COMPILE — always t
 
 ## Review Mistakes — Key Reminders
 
+### Practice Questions (switch-practice.md) — Score: 14/20 (70%)
+
+**WRONG: Q2** — Semicolon after `}` of a case block is illegal. `case 2 -> { yield "two"; };` → does not compile. The `;` at the end of the block is the killer, not the content inside.
+
+**WRONG: Q8** — Chose "arrow syntax requires single expression" but the real reason is `yield` is only valid in a switch **expression**, not a statement. The statement vs expression distinction is what matters, not the arrow vs colon.
+
+**WRONG: Q9** — Chose "not exhaustive" but the real error is **dominated cases**. With `case Number num` at top, every subtype (Integer, Double) below it is unreachable → compile error. Exhaustiveness is not the issue here.
+
+**WRONG: Q11** — `default` does NOT catch null. The code compiles fine (has `default`, is exhaustive), but throws NPE at runtime. This is the most dangerous misconception.
+
+**WRONG: Q12** — `case null` in a switch statement triggers pattern matching exhaustiveness rules. Without `default`, it does not compile.
+
+**WRONG: Q13** — `case null` cannot come after `default`. `default` dominates it → compile error.
+
+**Pattern: all three null questions (Q11/Q12/Q13) were wrong.** See the null handling section above.
+
+---
+
+### Original Review Questions (review-questions.txt)
+
 **Q2** — Missing answer `c`: likely an instanceof/flow scoping detail. Check every branch carefully.
 
 **Q6** — Revisit the exact rule that was tested here.
@@ -513,12 +623,20 @@ if (s instanceof String str) { }   // pre-Java 21: DOES NOT COMPILE — always t
 
 **Q30** — Wrong: answer is `e`. Review the specific rule being tested.
 
-**General — Recurring Confusion Points:**
+---
 
-- `var` in loops: infers **element type** in for-each, `int` in `for (var i = 0; ...)` — NOT always `int`
-- instanceof + switch + if: the pattern variable is only in scope where the compiler guarantees it; use the early-return trick for post-if usage
-- Guarded patterns (`when`): cases are matched **top to bottom** — put more specific `when` conditions first or they'll be shadowed
-- `continue` is not allowed in `switch` — only `break` and `yield`
-- switch **expressions** require exhaustiveness; switch **statements** do not (usually)
-- Mixing `:` and `->` in one switch → compile error
-- `null` in switch throws NPE unless you add `case null`
+### General — Recurring Confusion Points (HIGH PRIORITY)
+
+| Rule | Got it wrong |
+|---|---|
+| `default` does NOT catch `null` — only `case null` does | Q11 |
+| `case null` in switch statement forces exhaustiveness | Q12 |
+| `case null` cannot appear after `default` | Q13 |
+| `yield` is only valid in switch **expressions**, not statements | Q8 |
+| Case dominance = compile error, not runtime error | Q9, Q10 |
+| Arrow case block `{}` must NOT have `;` after closing `}` | Q2 |
+| switch **expressions** require exhaustiveness; **statements** do not | Q7 |
+| `var` in for-each infers element type, not `int` | orig Q15 |
+| Pattern variable scope: early-return trick for post-if usage | orig Q10, Q28 |
+| `continue` is not allowed in `switch` — only `break` and `yield` | — |
+| Mixing `:` and `->` in one switch → compile error | — |
