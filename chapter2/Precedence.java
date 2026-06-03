@@ -2,6 +2,19 @@ package chapter2;
 
 public class Precedence {
 
+    private static void check() {
+        Object obj = "Hello";
+        if (obj instanceof String s) { System.out.println(s.length()); }
+        if (obj instanceof String s && s.startsWith("H")) { System.out.println(s); }
+        Integer num = 42; 
+        // if (num instanceof String s) { System.out.println(s); } 
+        Object x = "test"; 
+        boolean check = x instanceof String;
+        System.out.println(check);
+        System.out.println(~(0b1010)); // bitwise complement
+        System.out.println(-4 >>> 1); // unsigned right shift
+    }
+
     public static void main(String[] args) {
         var var = 8;
         System.out.println(var);
@@ -61,5 +74,11 @@ public class Precedence {
         long a = 100000000L;
         long b = 100000000L;
         System.out.println(a * b);
+
+        // char c = 'A';
+        // char r1 = c + 1;
+        // System.out.println(r1);
+
+        check();
     }
 }
