@@ -1,13 +1,20 @@
 ---
 name: practice-questions-quality
-description: Quality assessment of generated OCP practice questions for chapters 6-10, what's good, what's missing, and what "harder" means for future generation
+description: Quality assessment of generated OCP practice questions for chapters 1-14, what's good, what's missing, and what "harder" means for future generation
 metadata:
   type: project
 ---
 
 ## What's been generated
 
-50 OCP-style questions + answers for each of chapters 6–10 (250 total), stored in `practice/chapter{6-10}/questions.md` and `answers.md`. Format matches the existing chapter 1–5 files exactly.
+- Chapters 1–9: 50 questions + answers each, stored in `practice/chapter{1-9}/questions.md` and `answers.md`.
+- Chapter 10 (Streams): 100 questions (Q1-50 original pass, Q51-100 "harder pass" added 2026-06-11).
+- Chapters 11 (Exceptions & Localization, 70 Q), 12 (Modules, 60 Q), 13 (Concurrency, 60 Q), 14 (I/O, 55 Q): generated 2026-06-11, harder pass from the start.
+
+All files follow the same markdown format: `**N.**` question stems, ```java code fences, lettered options with inline-code backticks, `---` separators, and `**N. <letters>**` answer headers with trace-through explanations.
+
+### Generation process for ch10 (51-100) and ch11-14 (2026-06-11)
+Five parallel agents, one per chapter, each given: PDF-extracted chapter text + official review-question/answer-key sections (from the OCP Java SE 21 Study Guide, Boyarsky & Selikoff) as grounding, the "harder pass" constraints below, and a detailed topic/exam-trap checklist. Each agent compiled and ran real Java snippets against JDK 21 to verify "what is the output" answers before finalizing — this caught real errors (wrong option letters, miscomputed outputs) during drafting. Verified post-hoc: correct sequential numbering 1-N, no duplicates, headers match `# Chapter NN: <Title> — Practice/Answers` format, "(Choose N)" counts match answer-key letter counts.
 
 ## Quality verdict: ~70–75% of actual OCP 1Z0-830 difficulty
 
@@ -46,7 +53,5 @@ When asked to "amp up difficulty" or generate a "second harder set", use these c
 - Add questions that combine two topics (e.g. lambda capturing a variable from a sealed-class switch, or a stream pipeline using a custom Comparator with generics)
 - For ch10 specifically: more pipeline questions where you must trace exactly what each op produces
 
-## Chapters not yet generated
-- Chapters 11–14 (Exceptions & Localization, Modules, Concurrency, I/O) — not started as of 2026-06-09
-
-**Why:** User asked for 6–10 first. Same format and difficulty target applies. When generating 11–14, apply the harder constraints from the start.
+## Status
+All 14 chapters now have practice question sets (1-9: 50 each, 10: 100, 11: 70, 12: 60, 13: 60, 14: 55). Total ~865 questions across the project.
