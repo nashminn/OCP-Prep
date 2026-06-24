@@ -123,3 +123,33 @@ fun fact time
 3. STATIC METHODS CANNOT BE OVERRIDDEN but they can be HIDDEN - how? when the child declares a static method with the same name and signature as an inherited static method defined in the parent class - similar but not exactly the same as method overriding
 
 variable overriding - not allowed 
+final methods cannot be overridden - obvious
+
+abstract classes - no instantiation whatsoever 
+abstract method - no body, must be overridden
+some rules:
+1. only instance methods can be marked abstract within a class, not variables, constructors (duh), or even static methods
+2. abstract class can contain zero or more abstract methods whereas non-abstract classes can contain none
+3. a non-abstract class extending an abstract class MUST implement all abstract methods
+4. overriding follows all other regular rules 
+
+An abstract class can be initialized, but only as part of the instantiation of a non-abstract subclass
+
+an abstract class can extend a non-abstract class, and vice-versa
+
+pretty obvious by now: final and abstract don't go together
+same with private and abstract like duh
+
+but somehow final and private go together, completely useless but doable 
+also static and abstract don't go together as a static method can only be hidden, not overridden
+
+making a class immutable:
+1. mark class as final / make all constructors private
+2. mark all instance variables private and final
+3. don't define setter methods
+4. don't allow referenced mutable objects to be modified (sounds like a job for 2) - apparently this means that you shouldn't define getters that'll return references to objects - mutation risk through references, and if you must define getter, just create a copy and return that instead which can be expensive if done frequently
+5. use constructor to set all properties of the object, making a copy if necessary 
+
+liked the concept of defensive copy in the constructor 
+
+still struggling with initialization order

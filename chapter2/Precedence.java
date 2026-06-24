@@ -2,7 +2,13 @@ package chapter2;
 
 public class Precedence {
 
+    private static void sth() {
+        System.out.println("what am i even doing?");
+    }
+
     public static void main(String[] args) {
+        Precedence.sth();
+
         var var = 8;
         System.out.println(var);
         int k = 0;
